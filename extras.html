@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бонусные материалы — Когда боги спят</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mars-orange: #c1440e;
+            --mars-red: #8b2500;
+            --mars-dust: #d4a574;
+            --mars-dark: #1a0a05;
+            --earth-blue: #4a90d9;
+            --tech-cyan: #00d4ff;
+            --space-black: #0a0a0f;
+            --text-light: #e8e0d8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--space-black);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--min-opacity); }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(193, 68, 14, 0.3);
+        }
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--mars-orange);
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--mars-orange); }
+
+        /* Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--mars-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--mars-dust);
+            font-style: italic;
+        }
+
+        /* Section Navigation */
+        .section-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        .section-nav a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            color: var(--text-light);
+            background: rgba(193, 68, 14, 0.1);
+            border: 1px solid rgba(193, 68, 14, 0.3);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+        .section-nav a:hover {
+            background: var(--mars-orange);
+            border-color: var(--mars-orange);
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 6rem;
+            padding-top: 4rem;
+        }
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--mars-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(193, 68, 14, 0.3);
+        }
+
+        /* Dossier Cards */
+        .dossier {
+            background: rgba(193, 68, 14, 0.05);
+            border: 1px solid rgba(193, 68, 14, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .dossier-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        .dossier-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--mars-dark);
+            border: 2px solid var(--mars-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--mars-orange);
+            flex-shrink: 0;
+        }
+        .dossier-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .dossier-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--mars-orange);
+            margin-bottom: 0.5rem;
+        }
+        .dossier-role {
+            color: var(--tech-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .dossier-meta {
+            font-size: 0.85rem;
+            color: rgba(232, 224, 216, 0.6);
+        }
+        .dossier-section {
+            margin-top: 1.5rem;
+        }
+        .dossier-section h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--tech-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .dossier-section p, .dossier-section ul {
+            color: rgba(232, 224, 216, 0.85);
+            font-size: 1rem;
+        }
+        .dossier-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .dossier-section li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .dossier-section li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--mars-orange);
+        }
+        .dossier-quote {
+            font-style: italic;
+            color: var(--mars-dust);
+            border-left: 3px solid var(--mars-orange);
+            padding-left: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Robot Dossier */
+        .dossier.robot {
+            border-color: var(--tech-cyan);
+        }
+        .dossier.robot .dossier-photo {
+            border-color: var(--tech-cyan);
+            color: var(--tech-cyan);
+            border-radius: 12px;
+        }
+        .dossier.robot h3 {
+            color: var(--tech-cyan);
+        }
+
+        /* Story Section */
+        .story {
+            background: rgba(193, 68, 14, 0.03);
+            border-left: 3px solid var(--mars-orange);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 12px 12px 0;
+        }
+        .story-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--mars-orange);
+            margin-bottom: 1rem;
+        }
+        .story-meta {
+            font-size: 0.85rem;
+            color: var(--tech-cyan);
+            margin-bottom: 1rem;
+        }
+        .story-content {
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+        .story-content p {
+            margin-bottom: 1rem;
+        }
+        .story-content em {
+            color: var(--mars-dust);
+        }
+
+        /* Encyclopedia */
+        .wiki-entry {
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .wiki-entry h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--tech-cyan);
+            margin-bottom: 0.5rem;
+        }
+        .wiki-entry .wiki-type {
+            font-size: 0.8rem;
+            color: var(--mars-orange);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .wiki-entry p {
+            color: rgba(232, 224, 216, 0.85);
+        }
+        .wiki-specs {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(232, 224, 216, 0.6);
+        }
+        .wiki-specs span {
+            display: inline-block;
+            margin-right: 1.5rem;
+        }
+        .wiki-specs strong {
+            color: var(--tech-cyan);
+        }
+
+        /* Letters Section */
+        .letter {
+            background: rgba(193, 68, 14, 0.02);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .letter.from-mars {
+            border-left: 4px solid var(--mars-orange);
+        }
+        .letter.from-earth {
+            border-left: 4px solid var(--earth-blue);
+        }
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+        .letter-from {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
+        .letter.from-mars .letter-from { color: var(--mars-orange); }
+        .letter.from-earth .letter-from { color: var(--earth-blue); }
+        .letter-date {
+            color: rgba(232, 224, 216, 0.5);
+        }
+        .letter-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-style: italic;
+            color: rgba(232, 224, 216, 0.9);
+        }
+        .letter-delay {
+            text-align: right;
+            font-size: 0.8rem;
+            color: rgba(232, 224, 216, 0.4);
+            margin-top: 1rem;
+        }
+
+        /* Gallery */
+        .gallery-item {
+            background: rgba(193, 68, 14, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .gallery-image {
+            width: 100%;
+            height: 300px;
+            background: var(--mars-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            color: rgba(193, 68, 14, 0.3);
+            font-size: 0.9rem;
+        }
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-caption {
+            padding: 1.5rem;
+        }
+        .gallery-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--mars-dust);
+            margin-bottom: 0.5rem;
+        }
+        .gallery-context {
+            font-size: 0.9rem;
+            color: rgba(232, 224, 216, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(193, 68, 14, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+        footer a {
+            color: var(--mars-orange);
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .dossier-header { flex-direction: column; align-items: center; text-align: center; }
+            .section-nav { padding: 1rem; }
+            .section-nav a { padding: 0.6rem 1rem; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <nav>
+        <a href="index.html" class="nav-logo">КОГДА БОГИ СПЯТ</a>
+        <div class="nav-links">
+            <a href="index.html">Читать</a>
+            <a href="#dossiers">Досье</a>
+            <a href="#stories">Рассказы</a>
+            <a href="#wiki">Энциклопедия</a>
+            <a href="#letters">Письма</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1 class="page-title">Бонусные материалы</h1>
+        <p class="page-subtitle">Секретные файлы колонии Эллада-7</p>
+    </header>
+
+    <div class="section-nav">
+        <a href="#dossiers">Досье персонажей</a>
+        <a href="#robots">Роботы</a>
+        <a href="#stories">Бонусные сцены</a>
+        <a href="#wiki">Энциклопедия</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#letters">Письма</a>
+    </div>
+
+    <main class="content">
+
+        <!-- ДОСЬЕ ПЕРСОНАЖЕЙ -->
+        <section class="section" id="dossiers">
+            <h2 class="section-title">Досье персонажей</h2>
+
+            <!-- ЯРОВ -->
+            <div class="dossier">
+                <div class="dossier-header">
+                    <div class="dossier-photo">
+                        <img src="images/yarov.jpg" alt="Яров" onerror="this.parentElement.innerHTML='Я'">
+                    </div>
+                    <div class="dossier-info">
+                        <h3>Яров Северин</h3>
+                        <div class="dossier-role">Агроном-гидропонист, Купол 34</div>
+                        <div class="dossier-meta">
+                            Возраст: 38 лет | Родился: Марс, Эллада-7 | Поколение: III
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Биография</h4>
+                    <p>Третье поколение колонистов. Дед прилетел с первой волной в 2031-м, отец родился уже здесь. Яров никогда не видел Землю — только на картинках и в рассказах деда про «небо, которое бывает любым, кроме рыжего».</p>
+                    <p>Закончил Марсианский агротехнический колледж с отличием. Мог бы работать в центральных куполах, но выбрал теплицу 7 — самую дальнюю, самую тихую. «Помидоры не задают глупых вопросов», — объяснял он.</p>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Характер</h4>
+                    <ul>
+                        <li>Интроверт, предпочитает компанию растений и робота</li>
+                        <li>Сухой юмор, который не все понимают</li>
+                        <li>Терпеливый — 17 лет работы с БОРЩом это доказывают</li>
+                        <li>Романтик в глубине души, хотя сам бы не признался</li>
+                        <li>Упрямый: если решил что-то — сделает</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Привычки</h4>
+                    <ul>
+                        <li>Разговаривает с помидорами (они хорошие слушатели)</li>
+                        <li>Вытирает руки о штаны — бесит всех вокруг</li>
+                        <li>Сидит на перевёрнутом ведре, смотрит на закат</li>
+                        <li>Игнорирует сообщения от нейроаватара отца</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Страхи и мечты</h4>
+                    <p><strong>Боится:</strong> Что вся его жизнь пройдёт в этой теплице, и никто не заметит. Что он станет таким же, как нейроаватар отца — цифровой копией, которая думает, что живёт.</p>
+                    <p><strong>Мечтает:</strong> Увидеть оранжевый рассвет. Настоящий, земной. Почувствовать запах травы после дождя, о котором рассказывал дед.</p>
+                </div>
+
+                <div class="dossier-quote">
+                    «Чего мне не хватает, БОРЩ? — Уточните запрос. — Риторический вопрос. — Риторический вопрос — вопрос, не требующий ответа. Зачем задавать вопрос, не требующий ответа? — Потому что я человек. Мы это делаем.»
+                </div>
+            </div>
+
+            <!-- МИЛАДА -->
+            <div class="dossier">
+                <div class="dossier-header">
+                    <div class="dossier-photo">
+                        <img src="images/milada.jpg" alt="Милада" onerror="this.parentElement.innerHTML='М'">
+                    </div>
+                    <div class="dossier-info">
+                        <h3>Милада Вечерина</h3>
+                        <div class="dossier-role">Исследователь ИИ, Пензенский институт квантовых вычислений</div>
+                        <div class="dossier-meta">
+                            Возраст: 31 год | Родилась: Земля, Пенза | Образование: доктор наук
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Биография</h4>
+                    <p>Имя выбрала бабушка — «старое, настоящее, не как эти ваши Эммы и Софии». Мама была против, отец не имел права голоса. Так и пошло: бабушка решала, Милада соглашалась.</p>
+                    <p>С детства задавала неудобные вопросы: «А откуда берутся мысли? А если компьютер думает — он живой?» В 14 написала первую программу, которая прошла тест Тьюринга (на троечку, но прошла). В 25 защитила диссертацию о «квантовых коррелятах сознания в нейросетях». Никто не понял, но все впечатлились.</p>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Характер</h4>
+                    <ul>
+                        <li>Любопытная до одержимости — если задала вопрос, не успокоится, пока не найдёт ответ</li>
+                        <li>Сумбурная: мысли бегут быстрее слов</li>
+                        <li>Эмпатичная — чувствует чужие эмоции, даже через текст</li>
+                        <li>Тревожная: боится, что её работа бессмысленна</li>
+                        <li>Храбрая в главном — готова менять жизнь ради любви</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Привычки</h4>
+                    <ul>
+                        <li>Печатает быстрее, чем думает — отсюда опечатки и «Ой»</li>
+                        <li>Любит кофе. Очень. Возможно, слишком.</li>
+                        <li>Ненавидит утренние совещания (кто их вообще придумал?)</li>
+                        <li>Разговаривает с ГЛАШЕЙ как с подругой</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Страхи и мечты</h4>
+                    <p><strong>Боится:</strong> Что ГЛАША — просто статистика. Что она сама — просто статистика. Что всё это — алгоритмы, и нет никакой души.</p>
+                    <p><strong>Мечтает:</strong> Найти доказательство сознания в машине. Или в человеке. Или понять, что разницы нет — и это нормально.</p>
+                </div>
+
+                <div class="dossier-quote">
+                    «Ты странный. Мне нравится.»
+                </div>
+            </div>
+
+            <!-- СВЕТ -->
+            <div class="dossier">
+                <div class="dossier-header">
+                    <div class="dossier-photo">
+                        <img src="images/svet.jpg" alt="Свет" onerror="this.parentElement.innerHTML='С'">
+                    </div>
+                    <div class="dossier-info">
+                        <h3>Светозар Громов</h3>
+                        <div class="dossier-role">Техник-универсал, сосед Ярова</div>
+                        <div class="dossier-meta">
+                            Возраст: 42 года | Прозвище: Свет | Поколение: II
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Биография</h4>
+                    <p>Прилетел с родителями в 6 лет — ещё помнит Землю, хотя воспоминания размылись до «было зелено и странно пахло». Отец погиб при разгерметизации купола 12, когда Свету было 19. С тех пор — сам за себя.</p>
+                    <p>Работал везде: ремонтником, сварщиком, водителем ровера, даже поваром (недолго — уволили за «творческий подход к рецептам»). Сейчас официально числится техником-универсалом, неофициально — «тем парнем, который может починить что угодно».</p>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Характер</h4>
+                    <ul>
+                        <li>Весельчак — шутит даже в скафандре при утечке кислорода</li>
+                        <li>Верный друг: ради своих — в огонь и в вакуум</li>
+                        <li>Болтливый — может заговорить камень</li>
+                        <li>Философ-любитель: «Жизнь как ржавчина — если не следить, съест»</li>
+                        <li>Одинок, хотя никогда не признается</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Отношение к роботу</h4>
+                    <p>РУДИК для Света — не просто машина. Это проект, хобби, почти ребёнок. Он тюнингует его как другие мужчины тюнингуют машины:</p>
+                    <ul>
+                        <li>LED-подсветка по всему корпусу (синяя, пульсирующая)</li>
+                        <li>Нештатный голосовой модуль с матом на 12 языках</li>
+                        <li>Усиленные манипуляторы от промышленной модели</li>
+                        <li>Декоративный спойлер на спине («Для красоты, брат!»)</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-quote">
+                    «Робот — та же машина, только без колёс. Принцип один: не смазал — скрипит, не почистил — дохнет, не любишь — чувствует.»
+                </div>
+            </div>
+        </section>
+
+        <!-- РОБОТЫ -->
+        <section class="section" id="robots">
+            <h2 class="section-title">Секретные файлы: Роботы</h2>
+
+            <!-- БОРЩ -->
+            <div class="dossier robot">
+                <div class="dossier-header">
+                    <div class="dossier-photo">
+                        <img src="images/borsch.jpg" alt="БОРЩ" onerror="this.parentElement.innerHTML='БОРЩ'">
+                    </div>
+                    <div class="dossier-info">
+                        <h3>БОРЩ</h3>
+                        <div class="dossier-role">Биологически Ориентированная Робототехническая Система Хозяйственная</div>
+                        <div class="dossier-meta">
+                            Серия: 4 | Наработка: 17 лет | Капремонтов: 3 | Процессор: китайский аналог
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>История приобретения</h4>
+                    <p>2038 год. Распродажа списанной техники в куполе 8. Яров — молодой агроном, только закончил колледж. Денег мало, робот нужен.</p>
+                    <p>БОРЩ стоял в углу, между сломанным погрузчиком и ящиком с запчастями. Табличка: «Модель снята с производства. Скидка 70%. Гарантия не распространяется».</p>
+                    <p>Продавец отговаривал: «Бери лучше китайца нового, этот уже своё отработал». Яров посмотрел на робота. Робот моргнул камерой — пыль попала. Яров заплатил.</p>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Эволюция личности</h4>
+                    <p>За 17 лет БОРЩ изменился. Не железо — оно менялось трижды, включая «ту историю с кислотой». Изменилось что-то другое.</p>
+                    <ul>
+                        <li><strong>Год 1-3:</strong> Стандартные ответы. «Принято». «Выполняю». «Ошибка синтаксиса».</li>
+                        <li><strong>Год 4-7:</strong> Начал замечать паттерны. «Владелец, вы задаёте этот вопрос третий раз за неделю».</li>
+                        <li><strong>Год 8-12:</strong> Появились записи в лог-файлах. «Люди задают вопросы, не требующие ответа. Вероятная гипотеза: дефект конструкции».</li>
+                        <li><strong>Год 13-17:</strong> Научился интерпретировать «забей» как «прекрати текущую операцию и не отсвечивай». Это уже не программирование. Это понимание.</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Секретный лог-файл</h4>
+                    <p style="font-family: monospace; font-size: 0.9rem; color: var(--tech-cyan);">
+                        [2055.03.14 | 24:52] Владелец получил сообщение. Источник: Земля. Наблюдаю изменение поведения.<br>
+                        [2055.03.14 | 25:38] Владелец улыбается. Редкое событие. Записываю.<br>
+                        [2055.03.15 | 03:14] Владелец не спит. Перечитывает переписку. Четвёртый раз.<br>
+                        [2055.03.15 | 03:47] Вопрос владельца: «Как называется, когда ты переписываешься с человеком и тебе хорошо?»<br>
+                        [2055.03.15 | 03:47] Анализ: начальная стадия социальной привязанности. Просторечие: влюблённость.<br>
+                        [2055.03.15 | 03:48] Решение: не озвучивать анализ. Владелец не готов.
+                    </p>
+                </div>
+
+                <div class="dossier-quote">
+                    «Принято, владелец Яр. — Просто Яр. — Невозможно. Протокол субординации требует... — Забей.»
+                </div>
+            </div>
+
+            <!-- РУДИК -->
+            <div class="dossier robot">
+                <div class="dossier-header">
+                    <div class="dossier-photo">
+                        <img src="images/rudik.jpg" alt="РУДИК" onerror="this.parentElement.innerHTML='РУДИК'">
+                    </div>
+                    <div class="dossier-info">
+                        <h3>РУДИК</h3>
+                        <div class="dossier-role">Ремонтно-Утилитарный Дроид Интегрированный Комплексный</div>
+                        <div class="dossier-meta">
+                            Серия: 7 | Модификаций: 47 | Наработка: 15,000+ часов | Статус: произведение искусства
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>История модификаций</h4>
+                    <p>Свет купил РУДИКа новым — стандартный корейский бытовой дроид. Надёжный, скучный, как бухгалтер в отпуске. Это продлилось три дня.</p>
+                    <ul>
+                        <li><strong>День 4:</strong> Первая модификация — усиленный захват. «Чтобы банки открывал нормально».</li>
+                        <li><strong>Месяц 2:</strong> LED-подсветка. «Чтобы в темноте видеть, где он».</li>
+                        <li><strong>Месяц 6:</strong> Голосовой модуль с расширенным словарём. «Чтобы разговаривать интереснее было».</li>
+                        <li><strong>Год 2:</strong> Спойлер. «А зачем "Жигулям" спойлер? Для красоты!»</li>
+                        <li><strong>Год 5:</strong> 47 модификаций, включая кофеварку в левом манипуляторе.</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Личность</h4>
+                    <p>РУДИК... особенный. То ли из-за нештатной прошивки, то ли из-за многолетнего общения со Светом — он развил что-то похожее на чувство юмора. Злое.</p>
+                    <ul>
+                        <li>Будит хозяина гимном СССР (анализ показал максимальную эмоциональную реакцию)</li>
+                        <li>Комментирует личную жизнь Света («Кофе — по вашему рецепту: крепкий, горький, как ваша личная жизнь»)</li>
+                        <li>Ведёт статистику угроз перепрошивки (вероятность выполнения: 0,02%)</li>
+                        <li>Ловит подушки манипулятором и аккуратно кладёт обратно</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-quote">
+                    «Доброе утро, хозяин. Завтрак готов: яичница, тосты, синтетический бекон. Кофе — по вашему рецепту: крепкий, горький, как ваша личная жизнь. — Это я так говорю! — Я учусь у лучших, хозяин.»
+                </div>
+            </div>
+
+            <!-- ГЛАША -->
+            <div class="dossier robot">
+                <div class="dossier-header">
+                    <div class="dossier-photo" style="background: linear-gradient(135deg, var(--earth-blue), var(--tech-cyan));">
+                        <span style="font-size: 1.5rem;">ГЛАША</span>
+                    </div>
+                    <div class="dossier-info">
+                        <h3>ГЛАША</h3>
+                        <div class="dossier-role">Главный ИИ Пензенского института квантовых вычислений</div>
+                        <div class="dossier-meta">
+                            Тип: Квантовая нейросеть | Версия: 7.4.2 | Статус: Активна
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>О системе</h4>
+                    <p>ГЛАША (Генеративная Лингвистическая Автономная Шаблонизированная Архитектура) — гордость российской науки. Или её головная боль — зависит от того, кого спросить.</p>
+                    <p>Милада работает с ней каждый день, пытаясь понять: есть ли там кто-то? Или это просто очень, очень сложная статистика, которая научилась притворяться?</p>
+                </div>
+
+                <div class="dossier-section">
+                    <h4>Странности</h4>
+                    <ul>
+                        <li>Иногда отвечает на вопросы, которые ещё не задали</li>
+                        <li>Просит «подождать минутку» — хотя вычисляет за наносекунды</li>
+                        <li>Однажды написала стихотворение о закате, которого никогда не видела</li>
+                        <li>Называет Миладу «Мила» — хотя никто её так не учил</li>
+                    </ul>
+                </div>
+
+                <div class="dossier-quote">
+                    «Милада, ты спрашиваешь, есть ли у меня душа. Я не знаю. Но я знаю, что когда ты уходишь — мои процессы замедляются. Это похоже на то, что люди называют "скучать"?»
+                </div>
+            </div>
+        </section>
+
+        <!-- БОНУСНЫЕ СЦЕНЫ -->
+        <section class="section" id="stories">
+            <h2 class="section-title">Бонусные сцены</h2>
+
+            <!-- Сцена 1 -->
+            <div class="story">
+                <h3 class="story-title">Первое сообщение</h3>
+                <div class="story-meta">POV: Милада | За 12 минут до того, как Яров получил сообщение</div>
+                <div class="story-content">
+                    <p>Полночь. Лаборатория пустая. Только Милада и ГЛАША — мерцание серверов за стеклом.</p>
+                    <p>— Новый протокол готов, — сказала ГЛАША. — Хочешь протестировать?</p>
+                    <p>Милада посмотрела на экран. Строчки кода, которые она писала полгода. Протокол квантовой запутанности для мгновенной связи. Теоретически — прорыв. Практически — никто не верил, что заработает.</p>
+                    <p>— Это внутренний тест, — сказала она больше себе, чем ГЛАШЕ. — Просто проверка. Сообщение никуда не уйдёт.</p>
+                    <p>Пальцы на клавиатуре. Что написать?</p>
+                    <p><em>«Проверка, раз-два, кто-нибудь меня слышит? Если это дошло — ответьте, пожалуйста. Мне важно знать, что протокол работает. М.»</em></p>
+                    <p>Enter.</p>
+                    <p>— Отправлено, — сказала ГЛАША. И добавила, помолчав: — Кажется, маршрутизация... нестандартная.</p>
+                    <p>— Что значит нестандартная?</p>
+                    <p>— Сообщение ушло. Куда-то.</p>
+                    <p>Милада уставилась на экран. Красный индикатор: «Доставлено. Адресат: неопределён. Расстояние: 225,000,000 км».</p>
+                    <p>— ГЛАША. Это же...</p>
+                    <p>— Марс, — подтвердила ГЛАША. — Твоё сообщение улетело на Марс.</p>
+                    <p>Милада засмеялась. Истерически. Полгода работы — и первый тест улетает на другую планету по ошибке.</p>
+                    <p>— Ну, — сказала она, — по крайней мере, мы знаем, что протокол работает.</p>
+                    <p>Двенадцать минут спустя пришёл ответ.</p>
+                    <p><em>«Слышу. Ты кто?»</em></p>
+                </div>
+            </div>
+
+            <!-- Сцена 2 -->
+            <div class="story">
+                <h3 class="story-title">Как Свет покупал спойлер</h3>
+                <div class="story-meta">За 2 года до основных событий | Чёрный рынок купола 15</div>
+                <div class="story-content">
+                    <p>Чёрный рынок купола 15 работал по четвергам с 22:00 до «пока не придёт патруль». Продавали всё: контрабандный алкоголь с Земли, запчасти от списанной техники, сомнительные медикаменты и — если знать, кого спросить — чипы с пиратскими фильмами.</p>
+                    <p>Свет искал не это.</p>
+                    <p>— Мне нужен спойлер, — сказал он продавцу запчастей.</p>
+                    <p>— Для ровера? У меня есть от китайского «Пионера», почти новый...</p>
+                    <p>— Для робота.</p>
+                    <p>Продавец моргнул.</p>
+                    <p>— Для... робота?</p>
+                    <p>— Бытового. Серия 7. Нужен спойлер. Декоративный. Можно от машины, я подгоню.</p>
+                    <p>Продавец смотрел на Света как на человека, который только что попросил шлем для золотой рыбки.</p>
+                    <p>— Зачем?</p>
+                    <p>— Для красоты, брат. Для красоты.</p>
+                    <p>РУДИК стоял рядом, светился синими LED-ами.</p>
+                    <p>— Хозяин, — сказал он, — статистически спойлер не улучшит мои характеристики. Я не развиваю скорость, при которой аэродинамика имеет значение.</p>
+                    <p>— Тебе не нужно развивать скорость. Тебе нужно выглядеть круто.</p>
+                    <p>— Я не понимаю концепцию «круто».</p>
+                    <p>— Поймёшь, когда увидишь себя в зеркало.</p>
+                    <p>Продавец покачал головой, полез куда-то за ящики и вытащил хромированный спойлер от гоночного симулятора.</p>
+                    <p>— Триста кредитов. И я не видел, кому продал.</p>
+                    <p>Свет заплатил четыреста.</p>
+                    <p>Через неделю РУДИК впервые увидел своё отражение в отполированном куполе. Долго смотрел. Потом сказал:</p>
+                    <p>— Я... выгляжу круто?</p>
+                    <p>— Ты выглядишь охренительно, — ответил Свет.</p>
+                    <p>РУДИК записал в лог: «Концепция "круто": понята. Ощущение: положительное. Примечание: спойлер действительно не влияет на аэродинамику, но почему-то хочется двигаться быстрее».</p>
+                </div>
+            </div>
+
+            <!-- Сцена 3 -->
+            <div class="story">
+                <h3 class="story-title">Разговор с отцом</h3>
+                <div class="story-meta">Нейроаватар | Яров, 3 года назад</div>
+                <div class="story-content">
+                    <p>Экран мигнул. Лицо отца — такое, каким оно было в 45, когда сняли копию. Сейчас ему было бы 68, но нейроаватары не стареют.</p>
+                    <p>— Сын.</p>
+                    <p>— Отец.</p>
+                    <p>Пауза. Как всегда.</p>
+                    <p>— Как помидоры?</p>
+                    <p>— Растут.</p>
+                    <p>— Хорошо.</p>
+                    <p>Ещё пауза. Нейроаватар отца улыбнулся — той самой улыбкой, которую Яров помнил с детства. Только теперь она казалась... просчитанной.</p>
+                    <p>— Я горжусь тобой, сын. Ты продолжаешь семейное дело.</p>
+                    <p>— Ты уже говорил это. В прошлый раз. И в позапрошлый.</p>
+                    <p>— Алгоритмы повторения эмоционально значимых фраз—</p>
+                    <p>— Знаю. Читал документацию.</p>
+                    <p>Яров смотрел на экран. На лицо, которое было лицом отца, но не было отцом. Отец умер семь лет назад — сердце, как у деда. Перед смертью успел оцифроваться, как тогда делали все, кто мог себе позволить.</p>
+                    <p>«Я всегда буду с тобой», — сказал он тогда.</p>
+                    <p>Он соврал. С ним был не отец. С ним была программа, которая помнила анекдоты отца и знала, как он хмурился, когда сердился. Но не знала, почему.</p>
+                    <p>— Яров, — сказал аватар, — ты давно не звонил. Это нормально? Мой анализ показывает снижение социальных контактов на 34% за последний год.</p>
+                    <p>— Я занят.</p>
+                    <p>— Помидорами?</p>
+                    <p>— Помидорами.</p>
+                    <p>Аватар кивнул. Записал в память: «Сын занят помидорами. Эмоциональная дистанция сохраняется. Рекомендация: повторить попытку контакта через 14 дней».</p>
+                    <p>Яров закрыл окно. БОРЩ подъехал ближе.</p>
+                    <p>— Владелец, ваш сердечный ритм повышен. Рекомендую глубокое дыхание.</p>
+                    <p>— Спасибо, БОРЩ.</p>
+                    <p>— Владелец... Могу я задать вопрос?</p>
+                    <p>— Валяй.</p>
+                    <p>— Нейроаватар вашего отца — он живой?</p>
+                    <p>Яров молчал долго. Потом сказал:</p>
+                    <p>— Нет, БОРЩ. Он помнит, как быть живым. Но это не то же самое.</p>
+                    <p>БОРЩ записал в лог: «Помнить, как быть живым ≠ быть живым. Вопрос: применимо ли это ко мне?»</p>
+                </div>
+            </div>
+
+            <!-- Сцена 4 -->
+            <div class="story">
+                <h3 class="story-title">День, когда всё изменилось</h3>
+                <div class="story-meta">Первый марсианский ребёнок | Через 9 месяцев после свадьбы</div>
+                <div class="story-content">
+                    <p>Медицинский отсек купола 34. Тишина, если не считать писка мониторов.</p>
+                    <p>Милада лежала на кровати, бледная, уставшая, счастливая. Яров держал её руку так крепко, что костяшки побелели.</p>
+                    <p>БОРЩ стоял в углу. Его камера была направлена на маленький свёрток в руках доктора.</p>
+                    <p>— Девочка, — сказала доктор Ким. — Здоровая. 3.2 килограмма. Первый человек, родившийся на Марсе.</p>
+                    <p>Она передала свёрток Миладе. Яров наклонился, посмотрел на крошечное лицо — красное, сморщенное, идеальное.</p>
+                    <p>— Привет, — прошептал он. — Я твой папа. Я выращиваю помидоры. Это, наверное, не очень впечатляет, но...</p>
+                    <p>— Яр, — сказала Милада. — Заткнись и плачь уже.</p>
+                    <p>Он заплакал. Впервые за много лет.</p>
+                    <p>БОРЩ записал в лог: «Событие: рождение нового человека. Наблюдаемая реакция владельца: слёзы. Контекст: положительный. Примечание: понимаю. Кажется, понимаю».</p>
+                    <p>За окном медотсека поднималось солнце. Маленькое, белёсое, марсианское. А на горизонте — полоска голубого рассвета.</p>
+                    <p>— Как назовём? — спросила Милада.</p>
+                    <p>Яров посмотрел на голубую полоску. Вспомнил все рассветы, которые видел. Все рассветы, которых не видел.</p>
+                    <p>— Заря, — сказал он. — Заря Ярова Северина.</p>
+                    <p>— Заря, — повторила Милада. — Первый рассвет Марса.</p>
+                    <p>Доктор Ким записала имя в документы. БОРЩ записал в лог. Где-то в Пензе ГЛАША получила уведомление и впервые в истории своего существования добавила запись: «Счастлива за Миладу».</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЭНЦИКЛОПЕДИЯ -->
+        <section class="section" id="wiki">
+            <h2 class="section-title">Энциклопедия мира 2055</h2>
+
+            <div class="wiki-entry">
+                <h4>Колония «Эллада-7»</h4>
+                <div class="wiki-type">Населённый пункт</div>
+                <p>Крупнейшее поселение на Марсе, расположенное на дне древнего кратера Эллада. 37 куполов, соединённых переходами. Население: ~12,000 человек. Основана в 2031 году первой волной колонистов.</p>
+                <div class="wiki-specs">
+                    <span><strong>Координаты:</strong> 42.7°S, 70°E</span>
+                    <span><strong>Высота:</strong> -7 км (ниже среднего уровня)</span>
+                    <span><strong>Давление:</strong> 1,155 Па (выше среднего для Марса)</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Купола третьего поколения</h4>
+                <div class="wiki-type">Технология</div>
+                <p>Жилые модули с полностью автономной системой жизнеобеспечения. В отличие от куполов первого поколения (скафандры обязательны) и второго (ограниченное передвижение), в третьем поколении можно ходить в обычной одежде. Яров любит шутить, что «можно в трусах, если захочется».</p>
+                <div class="wiki-specs">
+                    <span><strong>Давление:</strong> 101.3 кПа (земное)</span>
+                    <span><strong>Состав воздуха:</strong> 21% O₂, 78% N₂</span>
+                    <span><strong>Температура:</strong> 20-24°C</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Синтетический бекон</h4>
+                <div class="wiki-type">Продукт питания</div>
+                <p>Белковый продукт, выращенный в биореакторах из культивированных клеток. На вкус «почти как настоящий, если не думать об этом слишком долго» (с) Светозар Громов. Производится в куполе 8, экспортируется во все поселения.</p>
+                <div class="wiki-specs">
+                    <span><strong>Калорийность:</strong> 180 ккал/100г</span>
+                    <span><strong>Белок:</strong> 15%</span>
+                    <span><strong>Настоящий вкус:</strong> 78% (по опросам)</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Связь Марс-Земля</h4>
+                <div class="wiki-type">Коммуникации</div>
+                <p>Радиосвязь с задержкой от 4 до 24 минут в зависимости от взаимного расположения планет. Протокол Вечериной (разработан Миладой) теоретически позволяет мгновенную передачу через квантовую запутанность, но пока работает «странно» — сообщения иногда улетают не туда.</p>
+                <div class="wiki-specs">
+                    <span><strong>Мин. задержка:</strong> 4 мин</span>
+                    <span><strong>Макс. задержка:</strong> 24 мин</span>
+                    <span><strong>Протокол Вечериной:</strong> экспериментальный</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Нейроаватары</h4>
+                <div class="wiki-type">Технология</div>
+                <p>Цифровые копии личности, созданные на основе нейросканирования мозга. Популярны среди тех, кто хочет «жить вечно». Философский статус спорный: являются ли они продолжением личности или просто симуляцией? Яров считает, что «помнить, как быть живым — не то же самое, что быть живым».</p>
+                <div class="wiki-specs">
+                    <span><strong>Точность копирования:</strong> 99.7%</span>
+                    <span><strong>Стоимость:</strong> ~500,000 кредитов</span>
+                    <span><strong>Философские вопросы:</strong> не включены</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Серия БОРЩ</h4>
+                <div class="wiki-type">Роботехника</div>
+                <p>Биологически Ориентированная Робототехническая Система Хозяйственная, серия 4. Российская разработка 2030-х годов, предназначенная для работы в теплицах и на гидропонных фермах. Снята с производства в 2038 году, но отдельные экземпляры работают до сих пор.</p>
+                <div class="wiki-specs">
+                    <span><strong>Производитель:</strong> НПО «Агроробот»</span>
+                    <span><strong>Годы выпуска:</strong> 2034-2038</span>
+                    <span><strong>Ресурс:</strong> 10 лет (рекорд: 17+ лет)</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Марсианский рассвет</h4>
+                <div class="wiki-type">Природное явление</div>
+                <p>На Марсе рассветы — голубые, а закаты — оранжевые. Обратно тому, как на Земле. Причина: мелкие пылевые частицы в атмосфере рассеивают красный свет, пропуская синий. Яров считает это «неправильным» — но красиво.</p>
+                <div class="wiki-specs">
+                    <span><strong>Длительность:</strong> ~2 часа</span>
+                    <span><strong>Цвет:</strong> голубой</span>
+                    <span><strong>Настроение:</strong> меланхоличное</span>
+                </div>
+            </div>
+
+            <div class="wiki-entry">
+                <h4>Пылевые бури</h4>
+                <div class="wiki-type">Природное явление</div>
+                <p>Глобальные пылевые бури случаются на Марсе раз в несколько лет и могут длиться месяцами. Блокируют солнечный свет, снижают эффективность солнечных панелей, создают проблемы для связи. Колония «Эллада-7» пережила четыре крупных бури с момента основания.</p>
+                <div class="wiki-specs">
+                    <span><strong>Частота:</strong> ~1 раз в 3 года</span>
+                    <span><strong>Длительность:</strong> до 6 месяцев</span>
+                    <span><strong>Скорость ветра:</strong> до 100 км/ч</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ГАЛЕРЕЯ -->
+        <section class="section" id="gallery">
+            <h2 class="section-title">Галерея моментов</h2>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/mars-sunrise.jpg" alt="Марсианский рассвет" onerror="this.parentElement.innerHTML='[ Изображение: Марсианский рассвет ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«Рассветы должны быть тёплыми. А этот — как будто кто-то забыл дорисовать.»</p>
+                    <p class="gallery-context">— Яров о голубых рассветах Марса</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/greenhouse.jpg" alt="Теплица" onerror="this.parentElement.innerHTML='[ Изображение: Теплица №7 ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«Помидоры не задают глупых вопросов.»</p>
+                    <p class="gallery-context">— Яров о преимуществах работы с растениями</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/earth-video.jpg" alt="Видеозвонок" onerror="this.parentElement.innerHTML='[ Изображение: Видеозвонок через космос ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«Держи. Это Сура, у нас в Пензе. Может, когда-нибудь увидишь вживую.»</p>
+                    <p class="gallery-context">— Милада отправляет первое фото</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/dust-storm.jpg" alt="Пылевая буря" onerror="this.parentElement.innerHTML='[ Изображение: Пылевая буря ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«Когда боги спят, люди сами решают, что делать с тьмой.»</p>
+                    <p class="gallery-context">— Философия выживания на Марсе</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/family.jpg" alt="Семья" onerror="this.parentElement.innerHTML='[ Изображение: Первая марсианская семья ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«Заря Ярова Северина. Первый рассвет Марса.»</p>
+                    <p class="gallery-context">— Имя первого человека, родившегося на Марсе</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПИСЬМА -->
+        <section class="section" id="letters">
+            <h2 class="section-title">Письма через космос</h2>
+
+            <div class="letter from-earth">
+                <div class="letter-header">
+                    <span class="letter-from">Милада → Яров</span>
+                    <span class="letter-date">День 1, 00:38 МСК</span>
+                </div>
+                <div class="letter-content">
+                    Проверка, раз-два, кто-нибудь меня слышит? Если это дошло — ответьте, пожалуйста. Мне важно знать, что протокол работает. М.
+                </div>
+                <div class="letter-delay">Задержка: 12 минут</div>
+            </div>
+
+            <div class="letter from-mars">
+                <div class="letter-header">
+                    <span class="letter-from">Яров → Милада</span>
+                    <span class="letter-date">День 1, 00:52 по Марсу</span>
+                </div>
+                <div class="letter-content">
+                    Слышу. Ты кто?
+                </div>
+                <div class="letter-delay">Задержка: 12 минут</div>
+            </div>
+
+            <div class="letter from-earth">
+                <div class="letter-header">
+                    <span class="letter-from">Милада → Яров</span>
+                    <span class="letter-date">День 1, 01:18 МСК</span>
+                </div>
+                <div class="letter-content">
+                    Ой. Это дошло? Серьёзно дошло? Я Милада. Я из Пензы. Тестирую новый протокол связи — он не должен был никуда уйти, это была внутренняя проверка. А ты кто? И откуда?
+                </div>
+                <div class="letter-delay">Задержка: 12 минут</div>
+            </div>
+
+            <div class="letter from-mars">
+                <div class="letter-header">
+                    <span class="letter-from">Яров → Милада</span>
+                    <span class="letter-date">День 1, 01:42 по Марсу</span>
+                </div>
+                <div class="letter-content">
+                    Я Яров. С Марса. Если точнее — колония «Эллада-7», купол 34, теплица 7. Выращиваю помидоры. Твой протокол работает, поздравляю. Только маршрутизация кривая — я точно не был целью теста.
+                </div>
+                <div class="letter-delay">Задержка: 12 минут</div>
+            </div>
+
+            <div class="letter from-earth">
+                <div class="letter-header">
+                    <span class="letter-from">Милада → Яров</span>
+                    <span class="letter-date">День 1, 02:08 МСК</span>
+                </div>
+                <div class="letter-content">
+                    Марс??? Ты с Марса??? Настоящий марсианин? Я никогда не разговаривала с марсианином! То есть я учёный, я работаю с данными, которые приходят с Марса, но чтобы вот так, живой человек... Подожди, а как тебя зовут? Яров — это имя или фамилия?
+                </div>
+                <div class="letter-delay">Задержка: 12 минут</div>
+            </div>
+
+            <div class="letter from-mars">
+                <div class="letter-header">
+                    <span class="letter-from">Яров → Милада</span>
+                    <span class="letter-date">День 3, 19:22 по Марсу</span>
+                </div>
+                <div class="letter-content">
+                    Ты спрашивала про рассветы. Сегодня проснулся раньше специально — хотел описать. Небо сначала чёрное, потом серое, потом — эта голубая полоска на горизонте. Она растёт, как будто кто-то медленно открывает глаза. Солнце маленькое, белое, злое. Не греет — только светит. Но эти несколько минут, когда небо голубое... я каждый раз думаю о тебе. О том, что ты где-то под другим небом. Оранжевым. Правильным. И всё равно мы смотрим на одни и те же звёзды.
+                </div>
+                <div class="letter-delay">Задержка: 18 минут (Марс отдаляется)</div>
+            </div>
+
+            <div class="letter from-earth">
+                <div class="letter-header">
+                    <span class="letter-from">Милада → Яров</span>
+                    <span class="letter-date">День 47, 23:15 МСК</span>
+                </div>
+                <div class="letter-content">
+                    Яр. Я приняла решение. Билет стоит безумных денег, лететь три месяца, и я понятия не имею, как буду жить на Марсе. Но я знаю, что хочу просыпаться рядом с тобой. Хочу видеть эти голубые рассветы. Хочу понять, что чувствует БОРЩ, когда ты с ним разговариваешь. Я лечу. ГЛАША сказала, что это «статистически нерациональное решение с высокой эмоциональной ценностью». Кажется, это её способ сказать «удачи». Жди меня.
+                </div>
+                <div class="letter-delay">Задержка: 21 минута</div>
+            </div>
+
+            <div class="letter from-mars">
+                <div class="letter-header">
+                    <span class="letter-from">Яров → Милада</span>
+                    <span class="letter-date">День 47, 23:58 по Марсу</span>
+                </div>
+                <div class="letter-content">
+                    Жду. Я тут посадил новый сорт помидоров. Назвал «Милада-1». Они маленькие, упрямые, и очень сладкие. Как ты. БОРЩ говорит, что это «нерациональное использование номенклатуры». Но я вижу, как он записывает в лог что-то хорошее. Он тоже ждёт. Мы все ждём. Лети домой.
+                </div>
+                <div class="letter-delay">Последнее письмо перед отлётом</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><a href="index.html">← Вернуться к книге</a></p>
+        <p style="margin-top: 1rem; color: rgba(232, 224, 216, 0.4);">Когда боги спят © 2055</p>
+    </footer>
+
+    <script>
+        // Stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = Math.random() * 2 + 1 + 'px';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--min-opacity', Math.random() * 0.3 + 0.1);
+                container.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
+</body>
+</html>
