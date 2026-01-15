@@ -280,6 +280,22 @@
         .story-content em {
             color: var(--mars-dust);
         }
+        .story-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px solid var(--mars-orange);
+        }
+        .wiki-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid var(--tech-cyan);
+            float: right;
+            margin-left: 1rem;
+        }
 
         /* Encyclopedia */
         .wiki-entry {
@@ -707,8 +723,8 @@
             <!-- ГЛАША -->
             <div class="dossier robot">
                 <div class="dossier-header">
-                    <div class="dossier-photo" style="background: linear-gradient(135deg, var(--earth-blue), var(--tech-cyan));">
-                        <span style="font-size: 1.5rem;">ГЛАША</span>
+                    <div class="dossier-photo">
+                        <img src="images/glasha.jpg" alt="ГЛАША" onerror="this.parentElement.innerHTML='ГЛАША'">
                     </div>
                     <div class="dossier-info">
                         <h3>ГЛАША</h3>
@@ -749,6 +765,7 @@
             <div class="story">
                 <h3 class="story-title">Первое сообщение</h3>
                 <div class="story-meta">POV: Милада | За 12 минут до того, как Яров получил сообщение</div>
+                <img src="images/milada-message.jpg" alt="Милада отправляет сообщение" class="story-image" onerror="this.style.display='none'">
                 <div class="story-content">
                     <p>Полночь. Лаборатория пустая. Только Милада и ГЛАША — мерцание серверов за стеклом.</p>
                     <p>— Новый протокол готов, — сказала ГЛАША. — Хочешь протестировать?</p>
@@ -774,6 +791,7 @@
             <div class="story">
                 <h3 class="story-title">Как Свет покупал спойлер</h3>
                 <div class="story-meta">За 2 года до основных событий | Чёрный рынок купола 15</div>
+                <img src="images/svet-market.jpg" alt="Свет на рынке" class="story-image" onerror="this.style.display='none'">
                 <div class="story-content">
                     <p>Чёрный рынок купола 15 работал по четвергам с 22:00 до «пока не придёт патруль». Продавали всё: контрабандный алкоголь с Земли, запчасти от списанной техники, сомнительные медикаменты и — если знать, кого спросить — чипы с пиратскими фильмами.</p>
                     <p>Свет искал не это.</p>
@@ -805,6 +823,7 @@
             <div class="story">
                 <h3 class="story-title">Разговор с отцом</h3>
                 <div class="story-meta">Нейроаватар | Яров, 3 года назад</div>
+                <img src="images/yarov-avatar.jpg" alt="Яров говорит с нейроаватаром отца" class="story-image" onerror="this.style.display='none'">
                 <div class="story-content">
                     <p>Экран мигнул. Лицо отца — такое, каким оно было в 45, когда сняли копию. Сейчас ему было бы 68, но нейроаватары не стареют.</p>
                     <p>— Сын.</p>
@@ -842,6 +861,7 @@
             <div class="story">
                 <h3 class="story-title">День, когда всё изменилось</h3>
                 <div class="story-meta">Первый марсианский ребёнок | Через 9 месяцев после свадьбы</div>
+                <img src="images/baby.jpg" alt="Первый марсианин" class="story-image" onerror="this.style.display='none'">
                 <div class="story-content">
                     <p>Медицинский отсек купола 34. Тишина, если не считать писка мониторов.</p>
                     <p>Милада лежала на кровати, бледная, уставшая, счастливая. Яров держал её руку так крепко, что костяшки побелели.</p>
@@ -869,6 +889,7 @@
             <div class="wiki-entry">
                 <h4>Колония «Эллада-7»</h4>
                 <div class="wiki-type">Населённый пункт</div>
+                <img src="images/colony-aerial.jpg" alt="Колония Эллада-7" class="wiki-image" onerror="this.style.display='none'">
                 <p>Крупнейшее поселение на Марсе, расположенное на дне древнего кратера Эллада. 37 куполов, соединённых переходами. Население: ~12,000 человек. Основана в 2031 году первой волной колонистов.</p>
                 <div class="wiki-specs">
                     <span><strong>Координаты:</strong> 42.7°S, 70°E</span>
@@ -891,6 +912,7 @@
             <div class="wiki-entry">
                 <h4>Синтетический бекон</h4>
                 <div class="wiki-type">Продукт питания</div>
+                <img src="images/synthetic-food.jpg" alt="Синтетическая еда" class="wiki-image" onerror="this.style.display='none'">
                 <p>Белковый продукт, выращенный в биореакторах из культивированных клеток. На вкус «почти как настоящий, если не думать об этом слишком долго» (с) Светозар Громов. Производится в куполе 8, экспортируется во все поселения.</p>
                 <div class="wiki-specs">
                     <span><strong>Калорийность:</strong> 180 ккал/100г</span>
@@ -902,6 +924,7 @@
             <div class="wiki-entry">
                 <h4>Связь Марс-Земля</h4>
                 <div class="wiki-type">Коммуникации</div>
+                <img src="images/communication.jpg" alt="Связь Марс-Земля" class="wiki-image" onerror="this.style.display='none'">
                 <p>Радиосвязь с задержкой от 4 до 24 минут в зависимости от взаимного расположения планет. Протокол Вечериной (разработан Миладой) теоретически позволяет мгновенную передачу через квантовую запутанность, но пока работает «странно» — сообщения иногда улетают не туда.</p>
                 <div class="wiki-specs">
                     <span><strong>Мин. задержка:</strong> 4 мин</span>
@@ -913,6 +936,7 @@
             <div class="wiki-entry">
                 <h4>Нейроаватары</h4>
                 <div class="wiki-type">Технология</div>
+                <img src="images/neuroavatar-tech.jpg" alt="Технология нейроаватаров" class="wiki-image" onerror="this.style.display='none'">
                 <p>Цифровые копии личности, созданные на основе нейросканирования мозга. Популярны среди тех, кто хочет «жить вечно». Философский статус спорный: являются ли они продолжением личности или просто симуляцией? Яров считает, что «помнить, как быть живым — не то же самое, что быть живым».</p>
                 <div class="wiki-specs">
                     <span><strong>Точность копирования:</strong> 99.7%</span>
@@ -1006,6 +1030,26 @@
                 <div class="gallery-caption">
                     <p class="gallery-quote">«Заря Ярова Северина. Первый рассвет Марса.»</p>
                     <p class="gallery-context">— Имя первого человека, родившегося на Марсе</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/tomatoes-mars.jpg" alt="Помидоры на Марсе" onerror="this.parentElement.innerHTML='[ Изображение: Марсианские помидоры ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«Ты странный. Мне нравится.»</p>
+                    <p class="gallery-context">— Милада, после первых месяцев переписки</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image">
+                    <img src="images/video-call-love.jpg" alt="Видеозвонок" onerror="this.parentElement.innerHTML='[ Изображение: Любовь на расстоянии ]'">
+                </div>
+                <div class="gallery-caption">
+                    <p class="gallery-quote">«225 миллионов километров — это много. Но ты ближе всех.»</p>
+                    <p class="gallery-context">— Яров, в один из бессонных вечеров</p>
                 </div>
             </div>
         </section>
