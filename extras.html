@@ -232,6 +232,25 @@
             max-height: 10000px;
         }
 
+        /* Document Images */
+        .document-img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 8px;
+            border: 2px solid var(--archive-gold);
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.2);
+        }
+        .document-img.float-right {
+            float: right;
+            margin: 0 0 1rem 1.5rem;
+            max-width: 250px;
+        }
+        .document-img.full {
+            max-width: 100%;
+        }
+
         /* Document Content Styling */
         .document-body h3 {
             font-family: 'Orbitron', sans-serif;
@@ -538,6 +557,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/vsevolod.jpg" alt="Всеволод Вечерин" class="document-img float-right">
                 <div class="diary-entry">
                     <div class="diary-date">Запись от 12 марта 2038 года</div>
                     <p>Показал расчёты Совету. Думал — испугаются. Остановятся.</p>
@@ -555,6 +575,7 @@
                     <p>Может быть, это и есть совесть — когда врёшь ради того, кого уважаешь.</p>
                 </div>
 
+                <img src="images/tihon-quantum.jpg" alt="ТИХОН — квантовый компьютер" class="document-img">
                 <div class="diary-entry">
                     <div class="diary-date">Запись от 7 января 2045 года</div>
                     <p>ТИХОН заговорил сегодня.</p>
@@ -701,6 +722,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/inspector-volin.jpg" alt="Инспектор Волин" class="document-img float-right">
                 <div class="stamp">Конфиденциально</div>
 
                 <p><strong>Субъект:</strong> Семья Северин-Вечерина<br>
@@ -756,6 +778,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/zoryana-avatar.jpg" alt="Нейроаватар Зоряны" class="document-img">
                 <p><em>Примечание: Данные извлечены из архива программы «Родитель-2.0». Представлены выборочно.</em></p>
 
                 <h3>[12.03.2055, 14:32]</h3>
@@ -908,6 +931,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body narrative">
+                <img src="images/rudik-lying.jpg" alt="Рудик в терминале" class="document-img">
                 <p>Свет сидел в кабинете начальника и смотрел на свои руки.</p>
 
                 <p>— Объясните ещё раз, — сказал начальник. Круглый, потный, с глазами человека, который видел слишком много отчётов. — Вы утверждаете, что на вас напали?</p>
@@ -1074,6 +1098,9 @@
                     <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Нет. Воспоминания — точные. Это — другое. Я вижу теплицу, но помидоры — гигантские. Выше владельца. Они разговаривают.</span></div>
                     <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Помидоры разговаривают?</span></div>
                     <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Да. Петрович говорит: «Борщ, ты молодец». Другие соглашаются.</span></div>
+                </div>
+                <img src="images/borsch-dream.jpg" alt="Сон БОРЩА — гигантские помидоры" class="document-img full">
+                <div class="dialog">
                     <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Что ты чувствуешь?</span></div>
                     <div class="dialog-line"><span class="dialog-pause">[пауза 2.7 секунды]</span></div>
                     <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Тепло. Не физическое — другое. Как будто... [пауза 0.8 секунды] ...как будто я на месте. Как будто всё правильно.</span></div>
@@ -1199,6 +1226,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/colony-cafeteria.jpg" alt="Столовая колонии" class="document-img full">
                 <table class="menu-table">
                     <tr>
                         <th>День</th>
@@ -1266,6 +1294,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/aurora-moscow.jpg" alt="Северное сияние над Москвой" class="document-img full">
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-year">2032</div>
@@ -1323,6 +1352,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/grey-zone-dacha.jpg" alt="Дача в серой зоне" class="document-img float-right">
                 <h3>Определение</h3>
                 <p>«Серая зона» — неофициальный термин для территорий, не интегрированных в государственную систему контроля.</p>
 
@@ -1380,6 +1410,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/souls-queue-alt.jpg" alt="Очередь душ" class="document-img full">
                 <p><em>Примечание: Эта сцена была исключена из романа, так как противоречила «нерелигиозной» концепции v8. Публикуется как альтернативная версия.</em></p>
 
                 <div class="narrative">
@@ -1446,6 +1477,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body narrative">
+                <img src="images/petrovich-tomato.jpg" alt="Петрович — последний помидор" class="document-img float-right">
                 <p>Петрович умер сегодня.</p>
 
                 <p>Это звучит глупо — помидоры не умирают. Они заканчивают цикл. Сбрасывают плоды, высыхают, превращаются в компост для следующего поколения.</p>
@@ -1506,6 +1538,7 @@
                 <span class="document-toggle">&#9660;</span>
             </div>
             <div class="document-body">
+                <img src="images/milada-old.jpg" alt="Милада в старости" class="document-img float-right">
                 <p>Миладе было шестьдесят пять. ГЛАШЕ — пятьдесят четыре года с момента активации.</p>
                 <p>Они разговаривали каждую неделю — уже тридцать лет.</p>
 
