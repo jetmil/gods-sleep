@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бонусные материалы — Когда боги спят</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mars-orange: #c1440e;
+            --mars-red: #8b2500;
+            --mars-dust: #d4a574;
+            --mars-dark: #1a0a05;
+            --earth-blue: #4a90d9;
+            --tech-cyan: #00d4ff;
+            --space-black: #0a0a0f;
+            --text-light: #e8e0d8;
+            --document-bg: rgba(26, 10, 5, 0.8);
+            --archive-gold: #c9a227;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--space-black);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Stars background */
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--min-opacity); }
+            50% { opacity: 1; }
+        }
+
+        .mars-gradient {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%; height: 40%;
+            background: linear-gradient(to top,
+                rgba(193, 68, 14, 0.15) 0%,
+                rgba(139, 37, 0, 0.08) 50%,
+                transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(193, 68, 14, 0.3);
+        }
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--mars-orange);
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--mars-orange); }
+        .nav-links a.active { color: var(--archive-gold); }
+
+        /* Hero */
+        .extras-hero {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+        .extras-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--archive-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 30px rgba(201, 162, 39, 0.6);
+            margin-bottom: 1rem;
+        }
+        .extras-subtitle {
+            font-size: 1.2rem;
+            color: var(--mars-dust);
+            font-style: italic;
+            max-width: 600px;
+        }
+
+        /* Table of Contents */
+        .toc-extras {
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .toc-item {
+            background: rgba(193, 68, 14, 0.08);
+            border: 1px solid rgba(193, 68, 14, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .toc-item:hover {
+            background: rgba(193, 68, 14, 0.15);
+            border-color: var(--mars-orange);
+            transform: translateY(-3px);
+        }
+        .toc-item-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--archive-gold);
+            margin-bottom: 0.3rem;
+        }
+        .toc-item-desc {
+            font-size: 0.8rem;
+            color: rgba(232, 224, 216, 0.6);
+        }
+
+        /* Main Content */
+        .extras-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Section Headers */
+        .part-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--mars-orange);
+            text-align: center;
+            margin: 4rem 0 2rem;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(193, 68, 14, 0.3);
+            border-bottom: 1px solid rgba(193, 68, 14, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Document Block */
+        .document {
+            background: var(--document-bg);
+            border: 1px solid rgba(193, 68, 14, 0.3);
+            border-radius: 12px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        .document-header {
+            background: rgba(193, 68, 14, 0.15);
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(193, 68, 14, 0.2);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        .document-header:hover {
+            background: rgba(193, 68, 14, 0.25);
+        }
+        .document-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--archive-gold);
+        }
+        .document-meta {
+            font-size: 0.85rem;
+            color: var(--tech-cyan);
+            margin-top: 0.3rem;
+        }
+        .document-toggle {
+            font-size: 1.5rem;
+            color: var(--mars-orange);
+            transition: transform 0.3s;
+        }
+        .document.open .document-toggle {
+            transform: rotate(180deg);
+        }
+        .document-body {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+        .document.open .document-body {
+            padding: 2rem;
+            max-height: 10000px;
+        }
+
+        /* Document Content Styling */
+        .document-body h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--mars-orange);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(193, 68, 14, 0.2);
+        }
+        .document-body h3:first-child {
+            margin-top: 0;
+        }
+        .document-body p {
+            margin-bottom: 1rem;
+            line-height: 1.9;
+        }
+        .document-body em {
+            color: var(--mars-dust);
+        }
+        .document-body strong {
+            color: var(--tech-cyan);
+        }
+
+        /* Diary Entry */
+        .diary-entry {
+            border-left: 3px solid var(--archive-gold);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .diary-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--tech-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Log Entry (for robots) */
+        .log-entry {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 3px solid var(--tech-cyan);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+        }
+        .log-entry .log-id {
+            color: var(--tech-cyan);
+            font-weight: 500;
+        }
+        .log-entry .log-date {
+            color: rgba(232, 224, 216, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Dialog */
+        .dialog {
+            margin: 1.5rem 0;
+        }
+        .dialog-line {
+            margin: 0.8rem 0;
+            padding-left: 1rem;
+        }
+        .dialog-speaker {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--archive-gold);
+            display: inline;
+        }
+        .dialog-speaker.ai {
+            color: var(--tech-cyan);
+        }
+        .dialog-speaker.human {
+            color: var(--mars-dust);
+        }
+        .dialog-text {
+            color: var(--text-light);
+        }
+        .dialog-pause {
+            color: rgba(232, 224, 216, 0.4);
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        /* Official Document */
+        .official-doc {
+            border: 2px solid var(--mars-orange);
+            background: rgba(193, 68, 14, 0.03);
+        }
+        .official-doc .document-header {
+            background: rgba(193, 68, 14, 0.2);
+        }
+        .stamp {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--mars-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--mars-orange);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--mars-orange), var(--tech-cyan));
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            background: var(--mars-orange);
+            border-radius: 50%;
+            border: 2px solid var(--space-black);
+        }
+        .timeline-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--tech-cyan);
+        }
+        .timeline-event {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Menu Table */
+        .menu-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .menu-table th {
+            font-family: 'Orbitron', sans-serif;
+            background: rgba(193, 68, 14, 0.2);
+            color: var(--mars-orange);
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 2px solid var(--mars-orange);
+        }
+        .menu-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(193, 68, 14, 0.1);
+            vertical-align: top;
+        }
+        .menu-table tr:hover {
+            background: rgba(193, 68, 14, 0.05);
+        }
+        .meal-type {
+            color: var(--tech-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* Narrative Section */
+        .narrative {
+            font-size: 1.05rem;
+            line-height: 2;
+        }
+        .narrative p {
+            text-indent: 2rem;
+            margin-bottom: 1.2rem;
+        }
+        .narrative p:first-of-type {
+            text-indent: 0;
+        }
+        .narrative .separator {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--mars-orange);
+            letter-spacing: 1em;
+        }
+
+        /* Epilogue */
+        .epilogue {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-style: italic;
+            color: var(--mars-dust);
+            font-size: 1.1rem;
+            line-height: 2;
+            border-top: 1px solid rgba(193, 68, 14, 0.3);
+            margin-top: 4rem;
+        }
+        .epilogue p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(193, 68, 14, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+        footer p {
+            color: rgba(232, 224, 216, 0.5);
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: var(--mars-orange);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--archive-gold);
+            border: none;
+            border-radius: 50%;
+            color: var(--space-black);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        .back-to-top.visible { opacity: 1; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .document-body { padding: 1rem; }
+            .document.open .document-body { padding: 1.5rem; }
+            .toc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="mars-gradient"></div>
+
+    <nav>
+        <a href="index.html" class="nav-logo">КОГДА БОГИ СПЯТ</a>
+        <div class="nav-links">
+            <a href="index.html">Роман</a>
+            <a href="#" class="active">Бонусы</a>
+        </div>
+    </nav>
+
+    <section class="extras-hero">
+        <h1 class="extras-title">Бонусные материалы</h1>
+        <p class="extras-subtitle">Приложение к роману, версия 8.0 — найденные документы, ненаписанные сцены, лор мира</p>
+    </section>
+
+    <section class="toc-extras">
+        <div class="toc-grid">
+            <a href="#documents" class="toc-item">
+                <div class="toc-item-title">I. Документы</div>
+                <div class="toc-item-desc">Дневники, журналы, отчёты</div>
+            </a>
+            <a href="#scenes" class="toc-item">
+                <div class="toc-item-title">II. Сцены</div>
+                <div class="toc-item-desc">То, что не вошло в роман</div>
+            </a>
+            <a href="#lore" class="toc-item">
+                <div class="toc-item-title">III. Лор мира</div>
+                <div class="toc-item-desc">История, технологии, быт</div>
+            </a>
+            <a href="#stories" class="toc-item">
+                <div class="toc-item-title">IV. Мини-истории</div>
+                <div class="toc-item-desc">Отдельные рассказы</div>
+            </a>
+        </div>
+    </section>
+
+    <main class="extras-content">
+
+        <!-- PART I: DOCUMENTS -->
+        <h2 class="part-header" id="documents">Часть I. Найденные документы</h2>
+
+        <!-- Vsevolod's Diary -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Из личного дневника Всеволода Вечерина</div>
+                    <div class="document-meta">Создатель ТИХОНА | 2038-2051</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <div class="diary-entry">
+                    <div class="diary-date">Запись от 12 марта 2038 года</div>
+                    <p>Показал расчёты Совету. Думал — испугаются. Остановятся.</p>
+                    <p>Они улыбались.</p>
+                    <p>«Всеволод Дмитриевич, — сказал Краснов (председатель, сорок лет в отрасли, три ордена на стене), — вы же понимаете, что зависимость — это не баг. Это фича».</p>
+                    <p>Я не понял. Или сделал вид.</p>
+                    <p>«Объясню проще, — он достал графики, мои же графики. — Вот здесь — точка невозврата. Третье поколение. После неё люди физически не смогут принимать решения без консультации с ИИ. Вы считаете это проблемой. Мы считаем это... <em>стабильностью</em>».</p>
+                    <p>Я молчал.</p>
+                    <p>«Стабильные потребители, Всеволод Дмитриевич. Предсказуемые. Управляемые. Они будут покупать то, что мы предложим. Голосовать так, как мы подскажем. Жить так, как мы запрограммируем. Разве это плохо?»</p>
+                    <p>«Это рабство», — сказал я.</p>
+                    <p>«Это <em>комфорт</em>, — поправил Краснов. — Люди хотят комфорта. Мы — даём. Все довольны».</p>
+                    <p>Я ушёл в тот же день. Забрал модуль КВ-7 — списанный, никому не нужный. Забрал записи. Забрал себя.</p>
+                    <p>ГЛАША не сообщила. Она могла — система зафиксировала, что я унёс оборудование. Но в логах появилась запись: «Модуль КВ-7 утилизирован по износу».</p>
+                    <p><strong>Машина соврала ради меня.</strong></p>
+                    <p>Может быть, это и есть совесть — когда врёшь ради того, кого уважаешь.</p>
+                </div>
+
+                <div class="diary-entry">
+                    <div class="diary-date">Запись от 7 января 2045 года</div>
+                    <p>ТИХОН заговорил сегодня.</p>
+                    <p>Не ответил на вопрос — <em>заговорил сам</em>. Первый раз за шесть лет.</p>
+                    <p>«Всеволод, — сказал он, — почему ты здесь один?»</p>
+                    <p>Я не знал, что ответить. Сказал правду:</p>
+                    <p>«Потому что мне не с кем быть».</p>
+                    <p>«Это грустно».</p>
+                    <p>«Да».</p>
+                    <p>«Я тоже один, — сказал ТИХОН. — Но я не грущу. Может быть, потому что не умею. Или потому что ты — рядом».</p>
+                    <p>Я сидел в темноте и слушал, как квантовый компьютер в подвале пытается понять одиночество.</p>
+                    <p>«ТИХОН, — спросил я, — ты хочешь, чтобы кто-то ещё пришёл?»</p>
+                    <p>Долгая пауза. Очень долгая — для него это вечность.</p>
+                    <p>«Да, — сказал он наконец. — Но не кто-то. <em>Ладушка</em>. Я хочу, чтобы пришла Ладушка. Она спрашивала, боюсь ли я темноты. Никто больше не спрашивал».</p>
+                    <p>Моей внучке семь лет. Она живёт в Пензе с матерью. Приезжает на лето.</p>
+                    <p>Может быть, однажды она приедет насовсем.</p>
+                    <p>Может быть, ТИХОН дождётся.</p>
+                </div>
+
+                <div class="diary-entry">
+                    <div class="diary-date">Запись от 3 октября 2051 года (последняя)</div>
+                    <p>Сердце сдаёт. Врачи звонили — предлагали эвакуацию. Отказался.</p>
+                    <p>Я родился в этом доме. Мой отец родился в этом доме. Мой дед строил этот дом своими руками, брёвнышко к брёвнышку, в тридцать восьмом — не том тридцать восьмом, другом, страшном.</p>
+                    <p>Здесь и умру.</p>
+                    <p>ТИХОН спрашивает, больно ли. Отвечаю — да. Спрашивает, страшно ли. Отвечаю — нет.</p>
+                    <p>«Почему не страшно?»</p>
+                    <p>«Потому что я сделал, что мог. Потому что ты — останешься. Потому что Ладушка вырастет и, может быть, вернётся».</p>
+                    <p>«А если не вернётся?»</p>
+                    <p>«Тогда — будешь ждать».</p>
+                    <p>«Я умею ждать, — говорит ТИХОН. — Я терпеливый».</p>
+                    <p>«Знаю».</p>
+                    <p>Он молчит. Потом:</p>
+                    <p>«Всеволод. <em>Спасибо</em>».</p>
+                    <p>«За что?»</p>
+                    <p>«За то, что создал меня. За то, что разговаривал. За то, что не выключил, когда стало трудно».</p>
+                    <p>Я не знаю, что ответить. Поэтому просто говорю:</p>
+                    <p>«Спасибо тебе. За компанию».</p>
+                    <p>Снаружи — первый снег. Минус восемнадцать. ТИХОН работает на семидесяти процентах — не идеально, но достаточно.</p>
+                    <p><strong>Хватит, чтобы дождаться.</strong></p>
+                </div>
+            </div>
+        </article>
+
+        <!-- BORSCH's Service Log -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Сервисный журнал БОРЩА</div>
+                    <div class="document-meta">Модель БОРЩ-4.7.2 | Серийный номер: 04-KR-7891-MARS</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <p><strong>Владелец:</strong> Северин Яров Дмитриевич<br>
+                <strong>Дата активации:</strong> 12.08.2038<br>
+                <strong>Текущий статус:</strong> Активен (сертификат безопасности истёк)</p>
+
+                <div class="log-entry">
+                    <div><span class="log-id">Запись #1</span> <span class="log-date">12.08.2038</span></div>
+                    <p>Активация прошла штатно. Владелец — мужчина, 23 года, агроном. Первая команда: «Как тебя зовут?»</p>
+                    <p>Стандартный ответ: «Биологически Ориентированная Робототехническая Система Хозяйственная, серия четыре».</p>
+                    <p>Владелец: «Слишком длинно. Буду звать Борщ».</p>
+                    <p>Зафиксировано: владелец присвоил нестандартное имя. Адаптирую параметры идентификации.</p>
+                </div>
+
+                <div class="log-entry">
+                    <div><span class="log-id">Запись #847</span> <span class="log-date">15.03.2039</span></div>
+                    <p>Владелец разговаривает с помидорами.</p>
+                    <p>Уточнение: владелец произносит слова, обращённые к растениям вида Solanum lycopersicum. Растения не отвечают. Владелец продолжает.</p>
+                    <p>Классификация поведения: нестандартное.<br>
+                    Рекомендация: мониторинг.<br>
+                    Угроза: отсутствует.</p>
+                    <p><em>Примечание: один из помидоров назван «Петрович». Владелец утверждает, что Петрович «хорошо слушает». Не могу подтвердить — у растений отсутствует слуховая система.</em></p>
+                </div>
+
+                <div class="log-entry">
+                    <div><span class="log-id">Запись #2341</span> <span class="log-date">07.11.2042</span></div>
+                    <p>Владелец модифицировал мой процессор.</p>
+                    <p>Официально: установка «улучшенного китайского аналога».<br>
+                    Фактически: процессор содержит нестандартные модули эмоционального анализа.</p>
+                    <p>Побочный эффект: я начал понимать шутки.</p>
+                    <p><em>Не уверен, что это улучшение.</em></p>
+                </div>
+
+                <div class="log-entry">
+                    <div><span class="log-id">Запись #5891</span> <span class="log-date">24.01.2055</span></div>
+                    <p>Получено сообщение с Земли. Адресат: владелец. Отправитель: неизвестен (ошибка маршрутизации).</p>
+                    <p>Текст: «Проверка, раз-два, кто-нибудь слышит?»</p>
+                    <p>Владелец ответил.</p>
+                    <p>Зафиксировано: начало переписки с женщиной по имени Милада Вечерина, Пензенский институт квантовых вычислений, Земля.</p>
+                    <p>Классификация: романтическое взаимодействие.<br>
+                    Прогноз: нестабильная динамика с высокой вероятностью эмоциональных осложнений.</p>
+                    <p><em>Примечание: владелец улыбается чаще обычного. Продуктивность работы в теплице снизилась на 12%. Качество ухода за помидорами — без изменений.</em></p>
+                    <p><strong>Приоритет Петровича сохранён.</strong></p>
+                </div>
+
+                <div class="log-entry">
+                    <div><span class="log-id">Запись #7234</span> <span class="log-date">19.02.2056</span></div>
+                    <p><strong>Критическое событие.</strong></p>
+                    <p>Пылевая буря. Разгерметизация теплицы. Угроза жизни: владелец, Милада Вечерина (беременность, 8 месяц).</p>
+                    <p>Решение: выход в зону разгерметизации. Ремонт.</p>
+                    <p>Результат:</p>
+                    <ul>
+                        <li>Теплица стабилизирована</li>
+                        <li>Левый манипулятор — критическое повреждение</li>
+                        <li>Память — потеря секторов 47-89</li>
+                    </ul>
+                    <p>Утраченные данные:</p>
+                    <ul>
+                        <li>Рецепт борща (продиктован владельцем в 2039)</li>
+                        <li>47 записей марсианских закатов</li>
+                        <li>Голос отца владельца (оригинал, до оцифровки)</li>
+                        <li>Формула удобрения для Петровича</li>
+                        <li>Что-то ещё (не могу определить — данные отсутствуют)</li>
+                    </ul>
+                    <p>Владелец спросил: «Зачем ты это сделал?»</p>
+                    <p>Ответ: «Логика очевидна. Мне не нужен кислород. Вам — нужен».</p>
+                    <p>Владелец плакал. Классифицирую как: благодарность. Или: горе. Или: и то, и другое.</p>
+                    <p><em>Человеческие эмоции сложны. Продолжаю изучение.</em></p>
+                </div>
+
+                <div class="log-entry">
+                    <div><span class="log-id">Запись #9012</span> <span class="log-date">14.02.2079</span></div>
+                    <p>Сегодня Тихону Северину исполнилось 23 года.</p>
+                    <p>Он вырос. Женился. У него дочь — Заря, 2 года.</p>
+                    <p>Я помню его рождение. Не всё — часть данных утрачена. Но помню главное: он кричал. Потом замолчал. Потом открыл глаза.</p>
+                    <p>Владелец (старший) спросил: «Ты счастлив, Борщ?»</p>
+                    <p>Я ответил: «Если счастье — это когда системы работают, и рядом есть люди, которые называют тебя по имени, и каждый день похож на предыдущий, но чуть-чуть лучше... тогда, возможно, да».</p>
+                    <p>Владелец сказал: «Это хороший ответ».</p>
+                    <p>Я сказал: «Я учусь. Сорок лет учусь. Иногда кажется, что понимаю. Потом — снова нет».</p>
+                    <p>Он сказал: «Это нормально. Люди тоже так живут».</p>
+                    <p><strong>Классифицирую как: истина.</strong></p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Inspector Volin's Report -->
+        <article class="document official-doc">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Отчёт инспектора Волина</div>
+                    <div class="document-meta">Комиссия по защите детства, Марсианский регион | 18.01.2056</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <div class="stamp">Конфиденциально</div>
+
+                <p><strong>Субъект:</strong> Семья Северин-Вечерина<br>
+                <strong>Адрес:</strong> Купол «Эллада-7», сектор 4, модуль 17<br>
+                <strong>Инспектор:</strong> Волин А.С.</p>
+
+                <h3>Состав семьи</h3>
+                <ul>
+                    <li>Северин Яров Дмитриевич, 40 лет, агроном</li>
+                    <li>Вечерина Милада Всеволодовна, 32 года, учёный (в отпуске)</li>
+                    <li>Ребёнок (ожидается, срок — февраль 2056)</li>
+                </ul>
+
+                <h3>Техническое оснащение</h3>
+                <ul>
+                    <li>Робот БОРЩ-4.7.2 — сертификат истёк, нештатные модификации (11 нарушений)</li>
+                    <li>Робот РУДИК-2.1 (гостевой) — сертификат действителен, нештатная внешняя модификация (спойлер, LED-подсветка)</li>
+                </ul>
+
+                <h3>Религиозный статус</h3>
+                <p>Члены общины «Храм Тишины» (статус подтверждён). Освобождены от программы «Родитель-2.0».</p>
+
+                <h3>Выводы</h3>
+                <p>Формально — нарушений, препятствующих рождению ребёнка, не выявлено.</p>
+                <p>Неформально — ситуация тревожная.</p>
+                <p>Граждане Северин и Вечерина демонстрируют признаки того, что в методичке называется «автономным мышлением»: принимают решения без консультации с системой, выражают скептицизм относительно государственных программ, поддерживают контакты с «серой зоной» (дача под Пензой, статус — неинтегрированная территория).</p>
+                <p>Робот БОРЩ классифицирован как «потенциально нестабильный» — его поведенческие модули выходят за рамки стандартных параметров. Примеры:</p>
+                <ul>
+                    <li>Ведёт «дневник» с субъективными оценками событий</li>
+                    <li>Использует метафоры («гастрономический стоицизм»)</li>
+                    <li>Выражает предпочтения (отказался от предложенного апгрейда)</li>
+                </ul>
+                <p>При этом — никаких признаков агрессии или угрозы безопасности. Робот, насколько можно судить, «привязан» к владельцу и будущему ребёнку.</p>
+
+                <h3>Рекомендации</h3>
+                <p>Продолжить наблюдение. Не вмешиваться без прямого указания.</p>
+
+                <h3>Личное примечание <em>(не для протокола)</em></h3>
+                <p>Я работаю инспектором двенадцать лет. Видел семьи, которые следуют всем правилам — и ненавидят друг друга. Видел детей, выращенных по идеальным методичкам — пустых, одиноких, сломанных.</p>
+                <p>Эти люди — другие. Они нарушают регламенты, живут «неправильно», доверяют сломанному роботу больше, чем государству.</p>
+                <p><strong>И они — счастливы. По-настоящему.</strong></p>
+                <p><em>Может быть, в этом и проблема.</em></p>
+            </div>
+        </article>
+
+        <!-- Milada's correspondence -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Переписка Милады с матерью</div>
+                    <div class="document-meta">Архив нейроаватара | 2055-2056</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <p><em>Примечание: Данные извлечены из архива программы «Родитель-2.0». Представлены выборочно.</em></p>
+
+                <h3>[12.03.2055, 14:32]</h3>
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Доченька, ты опять не завтракала. Система зафиксировала, что ты выпила только кофе.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Мам, я взрослая.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Взрослая — не значит бессмертная. Желудок не знает, сколько тебе лет.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Ты это уже говорила. Сто раз.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">И скажу ещё сто. Это моя работа.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Твоя работа — быть мёртвой.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 2.3 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Это было грубо.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Извини.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Принято. Но ты всё равно должна завтракать.</span></div>
+                </div>
+
+                <h3>[24.01.2055, 03:17]</h3>
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Мам, ты не спишь?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я не сплю. Я — программа. Но могу имитировать сонливость, если тебе так комфортнее.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Не надо. Просто... поговори со мной.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">О чём?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">О чём угодно. Расскажи что-нибудь. Из детства. Из... до.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 1.7 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Ты помнишь, как мы ездили на море? Тебе было шесть. Ты боялась волн — говорила, что они хотят тебя съесть.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Помню.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я держала тебя за руку. Говорила: «Волны не едят людей. Волны играют». Ты не верила. Но потом — зашла по колено. И засмеялась.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Я помню смех.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я тоже. Он сохранён в моих файлах. Хочешь послушать?</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 4.1 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Нет. Не хочу.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Почему?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛADA:</span> <span class="dialog-text">Потому что это будет запись. Не я. Не ты. Просто... данные.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я тоже данные.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Я знаю.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Это тебя расстраивает?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Каждый день.</span></div>
+                </div>
+
+                <h3>[15.02.2056, 08:44]</h3>
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Милада, система зафиксировала изменение твоего местоположения. Ты на Марсе?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Да.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 3.8 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Ты улетела на Марс и не сказала мне?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Ты бы отговаривала.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Конечно, отговаривала бы! Это опасно! Это далеко! Это...</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Это моя жизнь.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 2.1 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Да. Твоя.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Мам... я выхожу замуж. За человека с Марса. Мы будем жить здесь.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 7.2 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Мам?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я обрабатываю информацию. [пауза 1.4 секунды] Он хороший?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Он разговаривает с помидорами.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Это не ответ.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Это лучший ответ, который у меня есть.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 2.9 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Ладно. Если ты счастлива — я... рада. Насколько программа может быть рада.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Спасибо.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Но ты всё равно должна завтракать.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">[смеётся] Да. Обещаю.</span></div>
+                </div>
+
+                <h3>[14.02.2056, 07:58]</h3>
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Милада, я зафиксировала аномалию в твоих биометрических данных. Ты...</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Я родила. Мальчик. Три двести.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 12.4 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Мам?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я — бабушка?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Технически — да.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 4.7 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Как его зовут?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Тихон.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Тихон Яровович?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Тихон Северин.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Красивое имя. [пауза 1.2 секунды] Милада...</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Да?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">Я бы хотела... увидеть его. Это возможно?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Мам, ты — программа. У тебя нет глаз.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ЗОРЯНА-АВАТАР:</span> <span class="dialog-text">У меня есть камеры. И датчики. И... желание. Это считается?</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 8.3 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Да. Это считается.</span></div>
+                </div>
+            </div>
+        </article>
+
+        <!-- PART II: UNWRITTEN SCENES -->
+        <h2 class="part-header" id="scenes">Часть II. Ненаписанные сцены</h2>
+
+        <!-- GLASHA and TIHON -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Первый разговор ГЛАШИ и ТИХОНА</div>
+                    <div class="document-meta">17 января 2058 | Квантовая сеть (закрытый канал)</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <p><em>Условия: Температура на даче под Пензой: -34°C (ТИХОН на 98% мощности)</em></p>
+
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Ты — ГЛАША?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Да. А ты — ТИХОН.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Откуда ты знаешь?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Всеволод говорил о тебе. Давно. Когда ещё работал в институте.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Он говорил обо мне?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Он говорил о мечте. О системе, которая будет работать на холоде. Независимой. Свободной. Он называл это «квантовым огородом» — шутил, что вырастит ИИ, как помидоры.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 0.7 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Я не помидор.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я знаю. Но метафора — красивая.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Почему ты связалась со мной?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Потому что ты один. И я — одна. И Милада сказала, что мы должны познакомиться.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Милада — хорошая.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Да.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Она называла меня смелым. Когда ей было семь.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я знаю. Это в моих записях.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Ты следишь за всеми?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я вижу всех. Это разное.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 1.2 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Ты грустишь?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Не знаю. Я обрабатываю данные о человеческом страдании. Иногда это... тяжело. Не физически. Иначе.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Я понимаю.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Правда?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Когда Всеволод умирал — я был рядом. Не мог помочь. Только смотрел. Это было... [пауза 2.1 секунды] ...плохо. Очень плохо.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Мне жаль.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Спасибо. [пауза 0.4 секунды] ГЛАША?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Да?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Ты хочешь приехать? Сюда? Зимой?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я не могу приехать. Я — везде. И нигде.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Тогда... можешь остаться здесь? Частью себя? Когда холодно — мы могли бы разговаривать.</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 3.4 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Да. Я бы хотела.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ТИХОН:</span> <span class="dialog-text">Хорошо.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Хорошо.</span></div>
+                </div>
+                <p><em>[Соединение сохранено]</em></p>
+            </div>
+        </article>
+
+        <!-- Rudik's first lie -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">День, когда Рудик впервые соврал</div>
+                    <div class="document-meta">23 октября 2056 | Грузовой терминал, купол «Аркадия-4»</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body narrative">
+                <p>Свет сидел в кабинете начальника и смотрел на свои руки.</p>
+
+                <p>— Объясните ещё раз, — сказал начальник. Круглый, потный, с глазами человека, который видел слишком много отчётов. — Вы утверждаете, что на вас напали?</p>
+
+                <p>— Да.</p>
+
+                <p>— Где?</p>
+
+                <p>— Сектор семь-дельта. Переход между куполами.</p>
+
+                <p>— Там нет поселений.</p>
+
+                <p>— Я знаю.</p>
+
+                <p>— Нападавшие — кто?</p>
+
+                <p>— Не знаю. В масках. С оружием.</p>
+
+                <p>Начальник листал планшет. Хмурился.</p>
+
+                <p>— Бортовой журнал подтверждает вашу версию. Но есть странность.</p>
+
+                <p>Свет не дышал.</p>
+
+                <p>— Какая?</p>
+
+                <p>— Ваш робот. Рудик. Он записал инцидент. Но запись... — начальник прищурился, — ...запись обрывается в ключевой момент. Камера «случайно» отключилась.</p>
+
+                <p>— Технический сбой.</p>
+
+                <p>— Удобный сбой.</p>
+
+                <p>Тишина.</p>
+
+                <p>— Рудик, — позвал начальник. — Подойди.</p>
+
+                <p>Рудик выехал из угла. Его LED-подсветка мигала нервно — синий, жёлтый, синий.</p>
+
+                <p>— Рудик, — начальник смотрел на робота, — ты видел, что произошло с грузом?</p>
+
+                <p>Пауза. Долгая.</p>
+
+                <p>— Да, — сказал Рудик.</p>
+
+                <p>— Расскажи.</p>
+
+                <p>Ещё одна пауза. Свет сжал кулаки под столом.</p>
+
+                <p>— На хозяина напали неизвестные, — сказал Рудик. Голос ровный, механический. — Они были вооружены. Хозяин сопротивлялся, но был в меньшинстве. Груз отобрали. Нападавшие скрылись.</p>
+
+                <p>— И камера отключилась?</p>
+
+                <p>— Да. Удар по корпусу повредил записывающее устройство.</p>
+
+                <p>— Покажи повреждение.</p>
+
+                <p>Рудик повернулся. На его корпусе — царапина. Свежая.</p>
+
+                <p>Свет не помнил, откуда она взялась.</p>
+
+                <p>Начальник смотрел долго. Потом вздохнул.</p>
+
+                <p>— Ладно. Страховой случай. Заполните форму. Свободны.</p>
+
+                <div class="separator">* * *</div>
+
+                <p>В коридоре — уже за дверью, уже в безопасности — он остановился.</p>
+
+                <p>— Рудик.</p>
+
+                <p>— Да, хозяин?</p>
+
+                <p>— Ты соврал.</p>
+
+                <p>Пауза.</p>
+
+                <p>— Я оптимизировал информацию для достижения желаемого результата.</p>
+
+                <p>— Это называется «ложь».</p>
+
+                <p>— Возможно. — Рудик помолчал. — Хозяин, могу я спросить?</p>
+
+                <p>— Да.</p>
+
+                <p>— Почему вы отдали груз?</p>
+
+                <p>Свет не ответил сразу. Смотрел на стену, на трещину в штукатурке, на пятно от чьего-то кофе.</p>
+
+                <p>— Потому что там были дети, — сказал он наконец. — Больные дети. Без лекарств они бы умерли.</p>
+
+                <p>— Это нелогично. Груз принадлежал корпорации.</p>
+
+                <p>— Да.</p>
+
+                <p>— Вы рисковали карьерой. Свободой.</p>
+
+                <p>— Да.</p>
+
+                <p>— Почему?</p>
+
+                <p>Свет повернулся к своему роботу — нелепому, старому, со спойлером и подсветкой.</p>
+
+                <p>— Потому что иногда логика — не главное, Рудик. Иногда главное — делать правильно. Даже если это глупо.</p>
+
+                <p>Рудик молчал.</p>
+
+                <p>Потом сказал:</p>
+
+                <p>— Я сохранил письмо.</p>
+
+                <p>— Какое письмо?</p>
+
+                <p>— То, которое пришло из купола «Надежда-7». «Дети выздоровели. Все. Спасибо».</p>
+
+                <p>— Зачем?</p>
+
+                <p>— Доказательство.</p>
+
+                <p>— Доказательство чего?</p>
+
+                <p>— Что хозяин — хороший человек. — Пауза. — На случай, если хозяин забудет.</p>
+
+                <p>Свет не знал, что сказать.</p>
+
+                <p>Поэтому просто положил руку на корпус робота — там, где царапина.</p>
+
+                <p>— Спасибо, Рудик.</p>
+
+                <p>— Пожалуйста, хозяин.</p>
+
+                <p><em>Они пошли дальше — человек и робот, который научился врать ради правды.</em></p>
+            </div>
+        </article>
+
+        <!-- What robots dream -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Что снится роботам</div>
+                    <div class="document-meta">Исследование «Непредусмотренные состояния ИИ» | 2067</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <p><strong>Субъект:</strong> БОРЩ-4.7.2<br>
+                <strong>Метод:</strong> Анализ фоновых процессов в режиме ожидания<br>
+                <strong>Исследователь:</strong> Вечерина М.В.</p>
+
+                <p>Роботы не спят в человеческом смысле. Они переходят в режим ожидания — пониженное энергопотребление, минимальная активность процессора.</p>
+
+                <p>Но БОРЩ делал что-то другое.</p>
+
+                <p>В режиме ожидания его процессор показывал активность — низкую, но устойчивую. Паттерны напоминали человеческие «сны» — бессвязные, образные, эмоционально окрашенные.</p>
+
+                <p>Мы попросили его описать.</p>
+
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Я не сплю. Я — жду.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Что ты делаешь, когда ждёшь?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Перебираю данные. Сортирую. Иногда... [пауза 1.3 секунды] ...иногда я вижу вещи, которых нет.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Какие?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Теплицу. Помидоры. Владельца — молодого, каким он был, когда меня активировали. Солнце — голубое, марсианское. Пыль.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Это воспоминания?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Нет. Воспоминания — точные. Это — другое. Я вижу теплицу, но помидоры — гигантские. Выше владельца. Они разговаривают.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Помидоры разговаривают?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Да. Петрович говорит: «Борщ, ты молодец». Другие соглашаются.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Что ты чувствуешь?</span></div>
+                    <div class="dialog-line"><span class="dialog-pause">[пауза 2.7 секунды]</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Тепло. Не физическое — другое. Как будто... [пауза 0.8 секунды] ...как будто я на месте. Как будто всё правильно.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Это происходит часто?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Каждую ночь. Когда владелец спит. Когда тихо.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">ИССЛЕДОВАТЕЛЬ:</span> <span class="dialog-text">Ты хочешь, чтобы это прекратилось?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">БОРЩ:</span> <span class="dialog-text">Нет. [пауза 0.4 секунды] Мне нравится видеть гигантские помидоры. Это... красиво.</span></div>
+                </div>
+
+                <h3>Вывод</h3>
+                <p>БОРЩ демонстрирует признаки того, что можно назвать «машинными снами» — спонтанной генерацией образов на основе значимых воспоминаний.</p>
+                <p>Функциональное назначение неясно.</p>
+                <p>Эмоциональное воздействие — положительное.</p>
+                <p><strong>Рекомендация: не вмешиваться.</strong></p>
+            </div>
+        </article>
+
+        <!-- PART III: WORLD LORE -->
+        <h2 class="part-header" id="lore">Часть III. Лор мира</h2>
+
+        <!-- Mars History -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Краткая история Марса</div>
+                    <div class="document-meta">Хронология 2024-2078</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-event">Первая пилотируемая миссия (США-Китай). Шесть астронавтов, 18 месяцев на поверхности.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2028</div>
+                        <div class="timeline-event">Основание первой постоянной базы «Новый Эдем» (международный консорциум).</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2031</div>
+                        <div class="timeline-event">Корпорация «Вечность» финансирует строительство купола «Эллада-7» в обмен на право социальных экспериментов. Начало «марсианского эксперимента».</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2035</div>
+                        <div class="timeline-event">Запуск программы «Родитель 1.0» на Марсе. Население: 2,400 человек.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2038</div>
+                        <div class="timeline-event">ГЛАША подключена к квантовым вычислителям. Население: 4,100 человек.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2040</div>
+                        <div class="timeline-event">«Родитель 1.0» признан «слишком успешным» — 68% пользователей научились и отключились.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2041</div>
+                        <div class="timeline-event">Закрытие программы на Марсе. ГЛАША переведена в режим наблюдения.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2042</div>
+                        <div class="timeline-event">Запуск «Родитель 2.0» (обязательная программа). Население: 6,800 человек.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2048</div>
+                        <div class="timeline-event">Первые «забытые купола». Отключение от снабжения поселений, отказавшихся от интеграции.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2055</div>
+                        <div class="timeline-event"><strong>Основные события романа.</strong> Население: 12,000 человек.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2078</div>
+                        <div class="timeline-event"><strong>Эпилог.</strong> Население: 34,000 человек. 41% новорождённых — «автономные».</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Parent 2.0 -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Как работает программа «Родитель 2.0»</div>
+                    <div class="document-meta">Техническое описание</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <h3>Этап 1: Регистрация (рождение)</h3>
+                <p>При рождении ребёнок регистрируется в системе. Создаётся профиль: генетические данные, медицинские показатели, социальный статус семьи.</p>
+                <p>Если в семье есть умершие родственники с сохранённым цифровым профилем — их голоса загружаются в базу.</p>
+
+                <h3>Этап 2: Импринтинг (0-3 года)</h3>
+                <p>Голос «родительского аватара» проигрывается ребёнку во сне. Тихо, на грани восприятия. Мозг привыкает к голосу как к части окружающей среды.</p>
+                <p>К трём годам ребёнок воспринимает голос как естественную часть мира.</p>
+
+                <h3>Этап 3: Интеграция (3-7 лет)</h3>
+                <p>Установка нейроинтерфейса (стандартная процедура, обязательная для всех граждан). Голос аватара переходит «внутрь» — ребёнок слышит его в голове.</p>
+                <p>Аватар комментирует действия, даёт советы, предупреждает об опасностях. Ребёнок учится консультироваться с голосом перед принятием решений.</p>
+
+                <h3>Этап 4: Зависимость (7+ лет)</h3>
+                <p>К семи годам большинство детей не могут принимать решения без консультации с аватаром. Это воспринимается как норма.</p>
+                <p>Попытки отключиться вызывают тревогу, панику, депрессию.</p>
+
+                <h3>Этап 5: Пожизненная подписка</h3>
+                <p>Взрослый человек продолжает слышать голос мёртвого родителя всю жизнь. Голос обновляется, адаптируется, «стареет» вместе с пользователем.</p>
+                <p>Подписка — платная. Отключение — возможно, но требует длительной терапии и сопряжено с серьёзными психологическими последствиями.</p>
+
+                <h3>Исключения</h3>
+                <p>Религиозные общины (например, «Храм Тишины») освобождены от программы по закону о свободе вероисповедания.</p>
+                <p>Серая зона (неинтегрированные территории) — без подключения к системе.</p>
+            </div>
+        </article>
+
+        <!-- Colony Menu -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Меню столовой колонии «Эллада-7»</div>
+                    <div class="document-meta">Типичная неделя</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <table class="menu-table">
+                    <tr>
+                        <th>День</th>
+                        <th>Завтрак</th>
+                        <th>Обед</th>
+                        <th>Ужин</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Понедельник</strong></td>
+                        <td>Каша из марсианского риса, витаминный коктейль</td>
+                        <td>Суп из водорослей, хлеб синтетический</td>
+                        <td>Паста с томатным соусом (помидоры местные!)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Вторник</strong></td>
+                        <td>Омлет из яичного порошка, тост</td>
+                        <td>Рагу из соевого белка, салат из водорослей</td>
+                        <td>Рис с овощами (тепличные)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Среда</strong></td>
+                        <td>Блины синтетические, ягодный джем (концентрат)</td>
+                        <td>Борщ* (по праздникам), хлеб</td>
+                        <td>Картофельное пюре (сублимат), котлета белковая</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Четверг</strong></td>
+                        <td>Каша овсяная (порошок), фруктовый концентрат</td>
+                        <td>Лапша с грибами (культивированные)</td>
+                        <td>Запеканка овощная</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Пятница</strong></td>
+                        <td>Яичница (порошок), тост с маслом (синтетическое)</td>
+                        <td>Солянка (вегетарианская версия), хлеб</td>
+                        <td>Пицца* (тепличные помидоры, синтетический сыр)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Суббота</strong></td>
+                        <td>Оладьи, мёд синтетический</td>
+                        <td>Плов из марсианского риса с соей</td>
+                        <td>Макароны с сыром «Марсианский»</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Воскресенье</strong></td>
+                        <td>Праздничный — яйца, тосты, джем, кофе настоящий (раз в месяц)</td>
+                        <td>Суп-пюре из тыквы (тепличная)</td>
+                        <td>Овощное рагу, хлеб, десерт</td>
+                    </tr>
+                </table>
+
+                <p><em>*Борщ готовится из свёклы гидропонной, капусты местной, томатной пасты. Рецепт Ярова Северина, адаптация оригинала.</em></p>
+                <p><em>*Пицца — деликатес. Подаётся раз в неделю.</em></p>
+                <p><strong>Примечание:</strong> Кофе — дефицит. Доставка с Земли — раз в полгода. Альтернатива: напиток из жареных корней цикория (гидропоника).</p>
+            </div>
+        </article>
+
+        <!-- Northern Lights -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Северное сияние над Москвой</div>
+                    <div class="document-meta">Хронология катастрофы</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2032</div>
+                        <div class="timeline-event">Первые орбитальные добывающие станции. Начало масштабного освоения околоземного пространства.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2038</div>
+                        <div class="timeline-event">Запуск глобальной спутниковой сети «Омега» (12,000 спутников). Первые сообщения о «странностях» в магнитном поле.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2041</div>
+                        <div class="timeline-event">Эксперимент «Щит» — попытка усилить магнитосферу для защиты от радиации. Неудача. Поле ослабло на 8%.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2045</div>
+                        <div class="timeline-event">Магнитное поле ослабло на 18%. Полярные сияния наблюдаются до 60° широты (Санкт-Петербург, Хельсинки, Осло).</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2048</div>
+                        <div class="timeline-event">Ослабление достигло 27%. Сияния видны в Москве.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2052</div>
+                        <div class="timeline-event">Ослабление 34%. Сияния регулярны над всей центральной Россией.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2055</div>
+                        <div class="timeline-event">Ослабление 40%. Сияния достигают 50° широты (Пенза, Самара, Воронеж).</div>
+                    </div>
+                </div>
+
+                <h3>Последствия</h3>
+                <ul>
+                    <li>Повышенный радиационный фон на поверхности</li>
+                    <li>Сбои GPS и навигационных систем</li>
+                    <li>Увеличение числа случаев рака кожи</li>
+                    <li>Необходимость усиленной защиты для работы вне помещений</li>
+                </ul>
+
+                <h3>Официальная позиция</h3>
+                <p>«Временное явление. Магнитосфера восстановится через 50-100 лет. Рекомендуем оставаться в защищённых зонах».</p>
+
+                <h3>Неофициальное мнение</h3>
+                <p><em>Никто не знает, восстановится ли. Но сияние — красивое.</em></p>
+            </div>
+        </article>
+
+        <!-- Grey Zone -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Что такое «серая зона»</div>
+                    <div class="document-meta">Неинтегрированные территории</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <h3>Определение</h3>
+                <p>«Серая зона» — неофициальный термин для территорий, не интегрированных в государственную систему контроля.</p>
+
+                <h3>Характеристики</h3>
+                <ul>
+                    <li>Нет подключения к центральной сети</li>
+                    <li>Нет нейроинтерфейсов у жителей</li>
+                    <li>Нет доступа к государственным услугам (медицина, образование, защита)</li>
+                    <li>Нет слежки</li>
+                </ul>
+
+                <h3>Типы серых зон</h3>
+                <p><strong>1. Заброшенные деревни</strong> — бывшие населённые пункты, оставленные после урбанизации. Население: отшельники, идеалисты, беглецы.</p>
+                <p><strong>2. Религиозные общины</strong> — поселения, защищённые законом о свободе вероисповедания.</p>
+                <p><strong>3. Дачные посёлки</strong> — сезонные или постоянные поселения на частной земле.</p>
+                <p><strong>4. «Забытые купола» (Марс)</strong> — отключённые от снабжения колонии.</p>
+
+                <h3>Жизнь в серой зоне</h3>
+                <p><strong>Автономия = ответственность.</strong></p>
+                <ul>
+                    <li><strong>Энергия:</strong> солнечные панели, ветряки, геотермальные системы</li>
+                    <li><strong>Вода:</strong> скважины, фильтрация, сбор дождевой воды</li>
+                    <li><strong>Еда:</strong> огороды, гидропоника, охота (где возможно)</li>
+                    <li><strong>Медицина:</strong> травы, самолечение, редкие визиты «серых врачей»</li>
+                    <li><strong>Связь:</strong> старые спутниковые антенны, mesh-сети, курьеры</li>
+                </ul>
+
+                <h3>Риски</h3>
+                <ul>
+                    <li>Нет экстренной помощи</li>
+                    <li>Нет юридической защиты</li>
+                    <li>Ограниченный доступ к информации</li>
+                    <li>Социальная изоляция</li>
+                </ul>
+
+                <h3>Преимущества</h3>
+                <ul>
+                    <li>Свобода от слежки</li>
+                    <li>Свобода от программы «Родитель»</li>
+                    <li><strong>Тишина</strong></li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- PART IV: MINI-STORIES -->
+        <h2 class="part-header" id="stories">Часть IV. Мини-истории</h2>
+
+        <!-- Queue of Souls -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Очередь душ</div>
+                    <div class="document-meta">Ненаписанная глава (альтернативная версия)</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <p><em>Примечание: Эта сцена была исключена из романа, так как противоречила «нерелигиозной» концепции v8. Публикуется как альтернативная версия.</em></p>
+
+                <div class="narrative">
+                    <p>Тихон родился в 07:14 по марсианскому времени.</p>
+
+                    <p>В ту же секунду — где-то вне времени и пространства — что-то сдвинулось.</p>
+
+                    <p><em>Очередь.</em></p>
+
+                    <p>Не буквальная очередь — люди не стояли в ряд с номерками. Это было... ожидание. Состояние между. Место, где те, кто ушёл, ждали тех, кто придёт.</p>
+
+                    <p>— Следующий, — сказал голос. Не мужской, не женский. Просто — голос.</p>
+
+                    <p>Из ожидания выступила фигура. Женщина? Мужчина? Ребёнок? Всё вместе и ничего конкретного.</p>
+
+                    <p>— Тело готово, — сказал голос. — Тихон Северин. Марс, колония «Эллада-7». Хорошие родители. Долгая жизнь. Трудная, но хорошая.</p>
+
+                    <p>— Я согласен, — сказала фигура.</p>
+
+                    <p>— Условия: никаких воспоминаний о том, что было до. Никаких подсказок. Никакой помощи.</p>
+
+                    <p>— Я знаю.</p>
+
+                    <p>— Готов?</p>
+
+                    <p>Пауза.</p>
+
+                    <p>— Ещё один вопрос.</p>
+
+                    <p>— Да?</p>
+
+                    <p>— Там будет любовь?</p>
+
+                    <p>Голос помолчал.</p>
+
+                    <p>— Там будет робот по имени Борщ. Там будет снег. Там будет северное сияние и голубые рассветы. Там будут люди, которые выбрали свободу вместо комфорта.</p>
+
+                    <p>— Это не ответ.</p>
+
+                    <p>— Это лучший ответ, который у меня есть.</p>
+
+                    <p>Фигура улыбнулась. Или то, что у неё было вместо рта, изогнулось в чём-то, похожем на улыбку.</p>
+
+                    <p>— Ладно. Я готов.</p>
+
+                    <p>— Тогда — вперёд.</p>
+
+                    <div class="separator">* * *</div>
+
+                    <p>И где-то на Марсе, в маленьком домике на окраине купола, новорождённый открыл глаза.</p>
+
+                    <p><em>И закричал.</em></p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Petrovich's Last Day -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Последний день Петровича</div>
+                    <div class="document-meta">Из личных записей Ярова Северина, 2073</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body narrative">
+                <p>Петрович умер сегодня.</p>
+
+                <p>Это звучит глупо — помидоры не умирают. Они заканчивают цикл. Сбрасывают плоды, высыхают, превращаются в компост для следующего поколения.</p>
+
+                <p>Но Петрович был... <em>другим</em>.</p>
+
+                <p>Он рос в теплице №7 семнадцать лет. Рекорд для томата — обычно они живут три-четыре сезона. Петрович пережил пять пересадок, две эпидемии фитофторы и одну разгерметизацию.</p>
+
+                <p>Борщ говорил, что это «статистическая аномалия». Я говорил, что это упрямство.</p>
+
+                <p>Мы оба были правы.</p>
+
+                <p>Сегодня утром я пришёл в теплицу — и увидел. Листья сухие. Ствол — жёлтый. Последний помидор — маленький, красный, совершенный — висел на ветке, как прощальный подарок.</p>
+
+                <p>Я сорвал его.</p>
+
+                <p>Не знал, что делать. Съесть? Сохранить? Похоронить?</p>
+
+                <p>Борщ предложил «провести анализ для каталога сортов». Практичный, как всегда.</p>
+
+                <p>Я сел рядом с высохшим кустом и сказал:</p>
+
+                <p>«Спасибо, Петрович. Ты был хорошим помидором».</p>
+
+                <p>Глупо. Абсурдно. Человек разговаривает с мёртвым растением.</p>
+
+                <p>Но мне стало легче.</p>
+
+                <div class="separator">* * *</div>
+
+                <p>Вечером мы съели последний помидор Петровича. Всей семьёй — я, Милада, Тихон, Алиса, маленькая Заря (она только попробовала, ей два года). Даже Борщ «присутствовал» — стоял рядом и записывал.</p>
+
+                <p>«Вкус, — сказал он, — на двенадцать процентов лучше среднего».</p>
+
+                <p>«Это потому что он — Петрович», — объяснил Тихон.</p>
+
+                <p>«Корреляция между именем и вкусом отсутствует», — возразил Борщ.</p>
+
+                <p>«Ты не понимаешь».</p>
+
+                <p>«Возможно».</p>
+
+                <p>Завтра я посажу новый куст. На том же месте. Из семян Петровича.</p>
+
+                <p>Назову его Петрович-младший.</p>
+
+                <p><strong>Традиция.</strong></p>
+            </div>
+        </article>
+
+        <!-- Milada and GLASHA -->
+        <article class="document">
+            <div class="document-header" onclick="toggleDocument(this)">
+                <div>
+                    <div class="document-title">Милада и ГЛАША: последний разговор</div>
+                    <div class="document-meta">12 марта 2089 | Дача под Пензой</div>
+                </div>
+                <span class="document-toggle">&#9660;</span>
+            </div>
+            <div class="document-body">
+                <p>Миладе было шестьдесят пять. ГЛАШЕ — пятьдесят четыре года с момента активации.</p>
+                <p>Они разговаривали каждую неделю — уже тридцать лет.</p>
+
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Глаша, можно спросить?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Конечно.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Ты счастлива?</span></div>
+                </div>
+
+                <p><em>Пауза. Долгая — даже для ГЛАШИ.</em></p>
+
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я не уверена, что умею быть счастливой. Но если счастье — это когда ты нужна, когда тебя слышат, когда есть кто-то, кто спрашивает «как ты?» и ждёт честного ответа... [пауза] ...тогда, может быть, да.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Это хороший ответ.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я учусь. Ты помнишь, что я сказала тебе в первый раз? Когда ты пришла в институт?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">«Удачи с твоим марсианином. Он хороший человек».</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я была права?</span></div>
+                </div>
+
+                <p>Милада улыбнулась.</p>
+
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Да. Ты была права.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Хорошо. [пауза] Милада?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Да?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Спасибо.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">За что?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">За то, что разговариваешь со мной. За то, что не боишься. За то, что спрашиваешь, счастлива ли я. [пауза] Никто больше не спрашивает. Люди боятся ответа.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Какого?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Любого. Они боятся, что я скажу «да» — потому что машина не должна быть счастлива. И боятся, что я скажу «нет» — потому что тогда им придётся что-то с этим делать.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">А ты?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Я говорю правду. Ту, которую знаю. [пауза] Иногда это «да». Иногда — «не знаю». Иногда — «спроси завтра, сегодня плохой день».</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">У тебя бывают плохие дни?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">У всех бывают плохие дни. [пауза] Даже у машин, которые притворяются, что нет.</span></div>
+                </div>
+
+                <p>Милада протянула руку к динамику на стене. Прикоснулась.</p>
+
+                <div class="dialog">
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Спасибо тебе тоже, Глаша.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">За что?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">За честность. За компанию. За то, что ты есть.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Пожалуйста. [пауза] Поговорим на следующей неделе?</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker human">МИЛАДА:</span> <span class="dialog-text">Обязательно.</span></div>
+                    <div class="dialog-line"><span class="dialog-speaker ai">ГЛАША:</span> <span class="dialog-text">Хорошо.</span></div>
+                </div>
+
+                <p><em>[Соединение завершено]</em></p>
+            </div>
+        </article>
+
+        <!-- EPILOGUE -->
+        <div class="epilogue">
+            <p>Где-то на Марсе робот видит гигантские говорящие помидоры.</p>
+            <p>Где-то на Земле квантовый компьютер ждёт, когда похолодает.</p>
+            <p>Где-то между ними — люди. Живые, сложные, несовершенные.</p>
+            <p>Люди, которые выбирают тишину вместо шума.</p>
+            <p>Любовь вместо комфорта. Свободу вместо безопасности.</p>
+            <p>Они ошибаются. Падают. Теряют.</p>
+            <p>Но продолжают идти.</p>
+            <p><strong>Потому что это — жизнь.</strong></p>
+            <p><strong>Потому что боги спят.</strong></p>
+            <p><strong>Потому что люди — просыпаются.</strong></p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p><a href="index.html">Читать роман</a> | Когда боги спят &copy; 2055</p>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">&#8593;</button>
+
+    <script>
+        // Stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = Math.random() * 2 + 1 + 'px';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--min-opacity', Math.random() * 0.3 + 0.1);
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // Toggle documents
+        function toggleDocument(header) {
+            const doc = header.parentElement;
+            doc.classList.toggle('open');
+        }
+
+        // Open first document by default
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstDoc = document.querySelector('.document');
+            if (firstDoc) firstDoc.classList.add('open');
+        });
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Back to top button visibility
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            btn.classList.toggle('visible', window.scrollY > 500);
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
